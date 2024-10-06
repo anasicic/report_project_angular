@@ -3,10 +3,9 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatErrorModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input'; // Import MatInputModule
+import { MatFormFieldModule } from '@angular/material/form-field'; // Import MatFormFieldModule
+import { MatButtonModule } from '@angular/material/button'; // Import MatButtonModule
 
 @Component({
   selector: 'app-registration',
@@ -16,58 +15,52 @@ import { MatErrorModule } from '@angular/material/core';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatButtonModule,
-    MatErrorModule
+    MatButtonModule
   ],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent {
-  registrationForm: FormGroup; // Registration form
-  loading: boolean = false; // Loading indicator
-  errorMessage: string | null = null; // Error message
+  registrationForm: FormGroup;
+  loading: boolean = false;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router
   ) {
-    // Initialize the form
     this.registrationForm = this.fb.group({
-      username: ['', Validators.required], // Username
-      email: ['', [Validators.required, Validators.email]], // Email
-      first_name: ['', Validators.required], // First name
-      last_name: ['', Validators.required], // Last name
-      password: ['', [Validators.required, Validators.minLength(6)]], // Password
-      confirmPassword: ['', Validators.required], // Confirm password
-      role: ['', Validators.required] // Role (optional)
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required],
+      role: ['']
     });
   }
 
-  // Method for submitting the form
   onSubmit() {
     if (this.registrationForm.valid) {
-      // Check if passwords match
       if (this.registrationForm.value.password !== this.registrationForm.value.confirmPassword) {
         this.errorMessage = 'Passwords do not match.';
         return;
       }
 
-      this.loading = true; // Set loading to true
+      this.loading = true;
 
       this.http.post('http://localhost:8000/create-user', this.registrationForm.value)
         .subscribe({
           next: (response) => {
-            // If registration is successful, redirect user
             this.router.navigate(['/login']);
           },
           error: (error) => {
-            // Handle error
-            this.loading = false; // Stop loading
+            this.loading = false;
             this.errorMessage = error.error.detail || 'An error occurred during registration.';
           },
           complete: () => {
-            this.loading = false; // Stop loading
+            this.loading = false;
           }
         });
     } else {
