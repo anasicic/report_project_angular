@@ -1,0 +1,28 @@
+<div class="login-container">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" required>
+        <mat-error *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)">
+          Username is required.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" required>
+        <mat-error *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+          Password is required.
+        </mat-error>
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+      <div *ngIf="errorMessage">{{ errorMessage }}</div>
+      
+      <div class="registration-link">
+        <p>Don't have an account? <a routerLink="/registration">Register here</a></p>
+      </div>
+    </form>
+  </div>
+  

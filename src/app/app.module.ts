@@ -8,13 +8,13 @@ import { RegistrationComponent } from './registration/registration.component'; /
 @NgModule({
   declarations: [
     AppComponent,
-    // Registruj RegistrationComponent
+  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RegistrationComponent // Dodaj RegistrationComponent ovdje
+    RegistrationComponent 
   ],
   providers: [],
   bootstrap: [AppComponent]
