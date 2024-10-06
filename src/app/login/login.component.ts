@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input'; 
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatButtonModule } from '@angular/material/button'; 
-import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';  // Uvezi AuthService
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
+    private authService: AuthService, // Koristimo AuthService
     private router: Router
   ) {
     // Inicijalizirajte formu
@@ -32,18 +32,20 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.http.post('http://localhost:8000/login', this.loginForm.value)
+      // Using AuthService for login
+      this.authService.login(this.loginForm.value)
         .subscribe({
           next: (response) => {
-            // Ako je prijava uspješna, preusmjerite korisnika
-            this.router.navigate(['/dashboard']); // ili bilo koja druga ruta
+            // If login is successful, store the token
+            localStorage.setItem('access_token', response.access_token); // Store token in local storage
+            this.router.navigate(['/dashboard']); // Navigate to the dashboard or any other route
           },
           error: (error) => {
-            this.errorMessage = error.error.detail || 'Prijava nije uspjela.';
+            this.errorMessage = error.error.detail || 'Login failed.'; // Update error message
           }
         });
     } else {
-      this.errorMessage = 'Molimo vas da ispunite sva obavezna polja.';
+      this.errorMessage = 'Please fill in all required fields.'; // Error message for invalid form
     }
   }
-}
+}  
