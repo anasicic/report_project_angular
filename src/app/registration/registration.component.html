@@ -1,69 +1,62 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
-    <!-- Username -->
-    <div>
-      <label for="username">Username:</label>
-      <input id="username" formControlName="username" type="text" placeholder="Enter username" />
-      <div *ngIf="registrationForm.controls['username'].invalid && registrationForm.controls['username'].touched">
-        <small class="error" *ngIf="registrationForm.controls['username'].hasError('required')">Username is required.</small>
-      </div>
-    </div>
-  
-    <!-- Email -->
-    <div>
-      <label for="email">Email:</label>
-      <input id="email" formControlName="email" type="email" placeholder="Enter email" />
-      <div *ngIf="registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched">
-        <small class="error" *ngIf="registrationForm.controls['email'].hasError('required')">Email is required.</small>
-        <small class="error" *ngIf="registrationForm.controls['email'].hasError('email')">Invalid email format.</small>
-      </div>
-    </div>
-  
-    <!-- First Name -->
-    <div>
-      <label for="firstName">First Name:</label>
-      <input id="firstName" formControlName="first_name" type="text" placeholder="Enter first name" />
-      <div *ngIf="registrationForm.controls['first_name'].invalid && registrationForm.controls['first_name'].touched">
-        <small class="error" *ngIf="registrationForm.controls['first_name'].hasError('required')">First name is required.</small>
-      </div>
-    </div>
-  
-    <!-- Last Name -->
-    <div>
-      <label for="lastName">Last Name:</label>
-      <input id="lastName" formControlName="last_name" type="text" placeholder="Enter last name" />
-      <div *ngIf="registrationForm.controls['last_name'].invalid && registrationForm.controls['last_name'].touched">
-        <small class="error" *ngIf="registrationForm.controls['last_name'].hasError('required')">Last name is required.</small>
-      </div>
-    </div>
-  
-    <!-- Password -->
-    <div>
-      <label for="password">Password:</label>
-      <input id="password" formControlName="password" type="password" placeholder="Enter password" />
-      <div *ngIf="registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched">
-        <small class="error" *ngIf="registrationForm.controls['password'].hasError('required')">Password is required.</small>
-        <small class="error" *ngIf="registrationForm.controls['password'].hasError('minlength')">Password must be at least 6 characters long.</small>
-      </div>
-    </div>
-  
-    <!-- Confirm Password -->
-    <div>
-      <label for="confirmPassword">Confirm Password:</label>
-      <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Re-enter password" />
-      <div *ngIf="registrationForm.controls['confirmPassword'].invalid && registrationForm.controls['confirmPassword'].touched">
-        <small class="error" *ngIf="registrationForm.controls['confirmPassword'].hasError('required')">Confirm password is required.</small>
-      </div>
-    </div>
-  
-    <!-- Role (optional) -->
-    <div>
-      <label for="role">Role:</label>
-      <input id="role" formControlName="role" type="text" placeholder="Enter role (e.g. user or admin)" />
-    </div>
-  
-    <button type="submit" [disabled]="registrationForm.invalid">Register</button>
-  
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-</form>
+<div class="registration-container">
+  <h2>Registration</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" required>
+      <mat-error *ngIf="registrationForm.controls['username'].invalid && (registrationForm.controls['username'].dirty || registrationForm.controls['username'].touched)">
+        Username is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" required>
+      <mat-error *ngIf="registrationForm.controls['email'].invalid && (registrationForm.controls['email'].dirty || registrationForm.controls['email'].touched)">
+        Please enter a valid email address.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="first_name" required>
+      <mat-error *ngIf="registrationForm.controls['first_name'].invalid && (registrationForm.controls['first_name'].dirty || registrationForm.controls['first_name'].touched)">
+        First name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="last_name" required>
+      <mat-error *ngIf="registrationForm.controls['last_name'].invalid && (registrationForm.controls['last_name'].dirty || registrationForm.controls['last_name'].touched)">
+        Last name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" required>
+      <mat-error *ngIf="registrationForm.controls['password'].invalid && (registrationForm.controls['password'].dirty || registrationForm.controls['password'].touched)">
+        Password is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput type="password" formControlName="confirmPassword" required>
+      <mat-error *ngIf="registrationForm.controls['confirmPassword'].invalid && (registrationForm.controls['confirmPassword'].dirty || registrationForm.controls['confirmPassword'].touched)">
+        Confirm Password is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Role</mat-label>
+      <input matInput formControlName="role" required>
+      <mat-error *ngIf="registrationForm.controls['role'].invalid && (registrationForm.controls['role'].dirty || registrationForm.controls['role'].touched)">
+        Role is required.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">Register</button>
+  </form>
+</div>

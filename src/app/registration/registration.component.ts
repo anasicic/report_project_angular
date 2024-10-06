@@ -2,12 +2,23 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatErrorModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule], // Ensure both CommonModule and ReactiveFormsModule are imported
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatErrorModule
+  ],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
@@ -29,7 +40,7 @@ export class RegistrationComponent {
       last_name: ['', Validators.required], // Last name
       password: ['', [Validators.required, Validators.minLength(6)]], // Password
       confirmPassword: ['', Validators.required], // Confirm password
-      role: [''] // Role (optional)
+      role: ['', Validators.required] // Role (optional)
     });
   }
 
