@@ -32,20 +32,30 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      // Using AuthService for login
+      // Koristimo AuthService za prijavu
       this.authService.login(this.loginForm.value)
         .subscribe({
           next: (response) => {
-            // If login is successful, store the token
-            localStorage.setItem('access_token', response.access_token); // Store token in local storage
-            this.router.navigate(['/dashboard']); // Navigate to the dashboard or any other route
+            // Ako je prijava uspešna, sačuvaj token
+            localStorage.setItem('access_token', response.access_token); // Sačuvaj token u local storage
+            this.router.navigate(['/']); // Preusmeri korisnika na početnu stranicu
+
+            // Poziv za dobijanje faktura nakon prijave
+            this.authService.getInvoices().subscribe({
+              next: (invoices) => {
+                console.log('Invoices:', invoices); // Prikaz ili obrada faktura
+              },
+              error: (err) => {
+                console.error('Error fetching invoices:', err);
+              }
+            });
           },
           error: (error) => {
-            this.errorMessage = error.error.detail || 'Login failed.'; // Update error message
+            this.errorMessage = error.error.detail || 'Login failed.'; // Ažuriraj poruku o grešci
           }
         });
     } else {
-      this.errorMessage = 'Please fill in all required fields.'; // Error message for invalid form
+      this.errorMessage = 'Please fill in all required fields.'; // Poruka o grešci za nevalidnu formu
     }
   }
-}  
+}

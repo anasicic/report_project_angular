@@ -1,17 +1,19 @@
 .login-container {
-    max-width: 400px; // Maksimalna širina obrasca
-    margin: auto; // Centriranje
-    padding: 20px;
-    border-radius: 8px; // Zaobljeni rubovi
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Sjena za efekt dubine
-  }
-  
-  .w-100 {
-    width: 100%; // Širina polja
-  }
-  
-  .registration-link {
-    margin-top: 10px; // Razmak iznad poveznice za registraciju
-    text-align: center; // Centriranje teksta
-  }
-  
+  max-width: 400px; /* Maksimalna širina forme */
+  margin: auto; /* Centriranje forme */
+  padding: 20px; /* Unutrašnji razmak */
+  border: 1px solid #ccc; /* Okvir */
+  border-radius: 8px; /* Zaobljeni uglovi */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+  background-color: #fff; /* Pozadina forme */
+}
+
+.error {
+  color: red; /* Boja za greške */
+  margin-top: 10px; /* Razmak iznad */
+}
+
+.registration-link {
+  margin-top: 20px; /* Razmak iznad */
+  text-align: center; /* Centriranje teksta */
+}
