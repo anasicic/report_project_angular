@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input'; 
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatButtonModule } from '@angular/material/button'; 
-import { AuthService } from '../services/auth.service';  // Uvezi AuthService
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,42 +20,46 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService, // Koristimo AuthService
+    private authService: AuthService,
     private router: Router
   ) {
-    // Inicijalizirajte formu
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.loginForm.valid) {
-      // Koristimo AuthService za prijavu
-      this.authService.login(this.loginForm.value)
-        .subscribe({
-          next: (response) => {
-            // Ako je prijava uspešna, sačuvaj token
-            localStorage.setItem('access_token', response.access_token); // Sačuvaj token u local storage
-            this.router.navigate(['/']); // Preusmeri korisnika na početnu stranicu
+      const credentials = this.loginForm.value;
 
-            // Poziv za dobijanje faktura nakon prijave
-            this.authService.getInvoices().subscribe({
-              next: (invoices) => {
-                console.log('Invoices:', invoices); // Prikaz ili obrada faktura
-              },
-              error: (err) => {
-                console.error('Error fetching invoices:', err);
-              }
-            });
-          },
-          error: (error) => {
-            this.errorMessage = error.error.detail || 'Login failed.'; // Ažuriraj poruku o grešci
+      this.authService.login(credentials).subscribe({
+        next: (response) => {
+          console.log('Response from login:', response); // Logirajte odgovor
+
+          // Osigurajte da je access_token prisutan u odgovoru
+          if (response.access_token) {
+            localStorage.setItem('access_token', response.access_token); // Sačuvajte token
+            
+            // Dekodirajte token kako biste dobili korisničke podatke
+            const decodedToken = this.authService.decodeToken(response.access_token);  // Koristi dekodiranje
+            const user = {
+              username: decodedToken.sub || 'unknown', // Fallback u slučaju null
+              role: decodedToken.role || 'unknown'
+            };
+            localStorage.setItem('user', JSON.stringify(user)); // Pohranite korisničke podatke
+            console.log("User data saved:", user); // Logirajte sačuvane podatke
+            this.router.navigate(['/home']);  
+          } else {
+            this.errorMessage = 'Failed to retrieve user data.';
           }
-        });
-    } else {
-      this.errorMessage = 'Please fill in all required fields.'; // Poruka o grešci za nevalidnu formu
+        },
+        error: (error) => {
+          console.error('Login failed', error);
+          this.errorMessage = 'Login failed. Please check your credentials.';
+          alert(this.errorMessage); // Prikažite grešku korisniku
+        }
+      });
     }
   }
 }
