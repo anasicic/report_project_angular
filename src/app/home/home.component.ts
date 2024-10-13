@@ -1,89 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import { InvoiceService } from '../services/invoice.service';
+import { Invoice } from '../models/invoice.model';
+import { CommonModule } from '@angular/common';
+import { SupplierService } from '../services/supplier.service';
+import { Supplier } from '../models/supplier.model';
+
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule, MatTableModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  user: any = {};
-  invoices: any[] = [];
-  isAdmin: boolean = false;
-  dataSource = new MatTableDataSource<any>([]); 
-  displayedColumns: string[] = ['id', 'amount', 'date', 'actions'];
+  invoices = new MatTableDataSource<Invoice>();
+  suppliers: Supplier[] = []; 
+  displayedColumns: string[] = ['invoice_number', 'supplier', 'date', 'netto_amount'];
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
+  constructor(private invoiceService: InvoiceService, private supplierService: SupplierService) {}
 
-  ngOnInit(): void {
-    const userData = localStorage.getItem('user');
-
-    // Proverite da li userData postoji i da nije undefined ili null
-    if (userData && userData !== 'undefined') {
-      try {
-        this.user = JSON.parse(userData);  // Pokušaj parsiranja
-        console.log('User data:', this.user);  // Logiranje korisničkih podataka
-
-        // Proveri da li je role definisana
-        if (this.user.role) {
-          this.isAdmin = this.user.role === 'admin';  // Proverite da li je korisnik admin
-        } else {
-          console.error('Role is not defined for the user.');
-        }
-
-        this.getInvoices();  // Pozivanje funkcije za dohvatanje faktura
-      } catch (error) {
-        console.error('Error parsing user data:', error);
-        this.router.navigate(['/login']);  // Preusmjeravanje na login stranicu u slučaju greške
-      }
-    } else {
-      console.error('User data is not available or invalid. Redirecting to login...');
-      this.router.navigate(['/login']);  // Preusmjeravanje na login stranicu ako podaci ne postoje
-    }
+  ngOnInit() {
+    this.loadInvoices();
+    this.loadSuppliers();
   }
 
-  getInvoices(): void {
-    const apiUrl = this.isAdmin ? 'http://localhost:8000/admin/invoices' : 'http://localhost:8000/invoices';
-    const token = localStorage.getItem('access_token');
-
-    const headers = { Authorization: `Bearer ${token}` };
-
-    console.log("Fetching invoices from:", apiUrl); // Loguj koji API se poziva
-    
-    this.http.get<any[]>(apiUrl, { headers }).subscribe({
-      next: (data) => {
-        console.log('Invoices fetched:', data);
-        this.invoices = data;
-        this.dataSource.data = this.invoices;
-      },
-      error: (error) => {
-        console.error('Error fetching invoices:', error);
-        alert('Failed to fetch invoices. Please try again later.'); // Obavestiti korisnika
-      }
+  loadInvoices() {
+    this.invoiceService.getInvoices().subscribe((data) => {
+      this.invoices.data = data.map((invoice) => {
+        const supplierName = this.getSupplierName(invoice.supplier_id);
+        console.log(`Račun ID: ${invoice.id}, Supplier ID: ${invoice.supplier_id}, Supplier Name: ${supplierName}`);
+        return {
+          ...invoice,
+          date: new Date(invoice.date).toISOString(),
+          supplier: supplierName,
+        };
+      });
+      console.log("Računi nakon povezivanja:", this.invoices.data);
     });
   }
 
-  deleteInvoice(id: number): void {
-    const apiUrl = `http://localhost:8000/invoices/${id}`;
-    const token = localStorage.getItem('access_token');
-
-    const headers = { Authorization: `Bearer ${token}` };
-
-    this.http.delete(apiUrl, { headers }).subscribe({
-      next: () => {
-        console.log(`Invoice with id ${id} deleted.`);
-        this.invoices = this.invoices.filter(invoice => invoice.id !== id);
-        this.dataSource.data = this.invoices; 
-      },
-      error: (error) => {
-        console.error('Error deleting invoice:', error);
-        alert('Failed to delete invoice. Please try again later.'); // Obavestiti korisnika
-      }
+  loadSuppliers() {
+    this.supplierService.getSuppliers().subscribe((data) => {
+      this.suppliers = data;
+      console.log("Dobavljači:", this.suppliers);
     });
+  }
+
+  getSupplierName(supplierId: number): string {
+    const supplier = this.suppliers.find(s => s.id === supplierId);
+    return supplier ? supplier.supplier_name : 'Nepoznat dobavljač';
   }
 }
