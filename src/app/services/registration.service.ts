@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';  // Uvezi HttpClient
+import { HttpClient } from '@angular/common/http'; 
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',  // Ovaj servis će biti dostupan u cijeloj aplikaciji
+  providedIn: 'root',  // servis dostupan u cijeloj aplikaciji
 })
 export class RegistrationService {
-  private apiUrl = 'https://your-api-url.com/register';  // Zamijeni s tvojim API endpointom
+  private apiUrl = 'https://your-api-url.com/register';
 
   constructor(private http: HttpClient) {}
 

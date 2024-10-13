@@ -14,11 +14,11 @@ export class SupplierService {
 
   // Metoda za dohvat svih dobavljača
   getSuppliers(): Observable<Supplier[]> {
-    const token = localStorage.getItem('access_token');  // Provjeri točan naziv tokena ako koristiš JWT
+    const token = localStorage.getItem('access_token'); 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`  // Dodaje Bearer token za autorizaciju
+      'Authorization': `Bearer ${token}`  
     });
 
-    return this.http.get<Supplier[]>(this.apiUrl, { headers });  // Prosljeđujemo zaglavlja u zahtjev
+    return this.http.get<Supplier[]>(this.apiUrl, { headers });  // Prosljeđuje zaglavlja u zahtjev
   }
 }

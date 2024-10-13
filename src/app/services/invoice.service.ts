@@ -13,7 +13,7 @@ export class InvoiceService {
 
   getInvoices(): Observable<Invoice[]> {
     // Pretpostavljamo da je token spremljen u localStorage
-    const token = localStorage.getItem('access_token'); // Pobrinite se da koristite ispravan naziv ključa
+    const token = localStorage.getItem('access_token'); 
 
     // Postavi zaglavlje za autorizaciju
     const headers = new HttpHeaders({
@@ -24,7 +24,7 @@ export class InvoiceService {
   }
 
   createInvoice(invoice: Invoice): Observable<Invoice> {
-    const token = localStorage.getItem('access_token'); // Pobrinite se da koristite ispravan naziv ključa
+    const token = localStorage.getItem('access_token'); 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

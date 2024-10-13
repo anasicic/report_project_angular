@@ -35,7 +35,7 @@ export class LoginComponent {
 
       this.authService.login(credentials).subscribe({
         next: (response) => {
-          console.log('Response from login:', response); // Logirajte odgovor
+          console.log('Response from login:', response); 
 
           // Osigurajte da je access_token prisutan u odgovoru
           if (response.access_token) {
