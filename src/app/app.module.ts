@@ -21,10 +21,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AuthService } from './services/auth.service';
 import { SupplierService } from './services/supplier.service';
+import { MatError } from '@angular/material/core';
+import { RegistrationComponent } from './registration/registration.component';
+
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    RegistrationComponent
   ],
 
   imports: [
@@ -40,7 +44,8 @@ import { SupplierService } from './services/supplier.service';
     MatNativeDateModule,
     MatDatepickerModule,
     BrowserAnimationsModule,
-    CommonModule
+    CommonModule,
+    MatSelectModule
   ],
   providers: [
     AuthService,
