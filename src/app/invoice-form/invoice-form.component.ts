@@ -76,25 +76,25 @@ export class InvoiceFormComponent {
   onSubmit() {
     if (this.invoiceForm.invalid) {
       console.error('Form is invalid');
-      return; // Ako je forma nevalidna, izađi iz metode
+      return; 
     }
 
     const invoice: Invoice = {
-      id: 0,  // Ili ga potpuno izostavi, jer nije potreban pri kreaciji
+      id: 0,  
       invoice_number: this.invoiceForm.get('invoice_number')?.value,
       date: this.invoiceForm.get('date')?.value,
       netto_amount: this.invoiceForm.get('netto_amount')?.value,
       cost_code_id: this.invoiceForm.get('cost_code_id')?.value,
       cost_center_id: this.invoiceForm.get('cost_center_id')?.value,
       supplier_id: this.invoiceForm.get('supplier_id')?.value,
-      user_id: 0,  // Ako ne koristiš ovu vrednost, možda možeš da je izostaviš
-      supplier: this.invoiceForm.get('supplier')?.value // Ako je potrebna, ili možeš da je izostaviš
+      user_id: 0, 
+      supplier: this.invoiceForm.get('supplier')?.value 
     };
 
     this.invoiceService.createInvoice(invoice).subscribe({
       next: (response) => {
         console.log('Invoice created successfully:', response);
-        // Ovdje možeš dodati kod za resetovanje forme ili navigaciju
+        
       },
       error: (error) => {
         console.error('Error creating invoice:', error);
