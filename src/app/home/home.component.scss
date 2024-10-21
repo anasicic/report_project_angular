@@ -2,10 +2,16 @@
 
 .invoice-container {
   position: relative; // Omogućava da se gumb pozicionira apsolutno unutar ovog kontejnera
+  padding: 20px; // Dodajte unutrašnji razmak oko sadržaja kontejnera
+  background-color: #f9f9f9; // Blaga pozadinska boja za kontejner
+  border-radius: 8px; // Zaobljeni rubovi kontejnera
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
 h1 {
   margin-bottom: 20px;
+  font-size: 24px; // Povećanje fonta naslova
+  color: #333; // Tamno siva boja za naslov
 }
 
 .add-invoice-btn {
@@ -13,11 +19,21 @@ h1 {
   top: 20px; // Udaljenost od vrha
   right: 20px; // Udaljenost od desnog ruba
   z-index: 10; // Osigurava da je gumb iznad drugih elemenata
+  width: 40px; // Širina gumba
+  height: 40px; // Visina gumba
+  border-radius: 50%; // Čini gumb kružnim
+  transition: background-color 0.3s; // Animacija boje pozadine
+
+  &:hover {
+    background-color: rgba(63, 81, 181, 0.2); // Promjena boje pri prelasku miša
+  }
 }
 
 /* Stil za tablicu i sjenu */
 table {
   width: 100%;
+  border-collapse: collapse; // Spajanje granica tabele
+  margin-top: 20px; // Razmak između gumba i tabele
 }
 
 .mat-elevation-z8 {
@@ -31,4 +47,17 @@ table {
 .mat-button {
   display: flex; // Omogućuje centriranje sadržaja unutar gumba
   align-items: center; // Poravnanje ikone i teksta u sredinu
+}
+
+/* Stiliziranje ćelija tabele */
+th.mat-header-cell {
+  background-color: #e0e0e0; // Pozadinska boja za zaglavlja
+  font-weight: bold; // Podebljana slova za zaglavlja
+  text-align: left; // Poravnanje teksta u lijevo
+  padding: 12px; // Razmak unutar zaglavlja
+}
+
+td.mat-cell {
+  padding: 12px; // Razmak unutar ćelija
+  border-bottom: 1px solid #ddd; // Donja granica ćelija
 }

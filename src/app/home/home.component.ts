@@ -8,8 +8,9 @@ import { Supplier } from '../models/supplier.model';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon'; 
 import { MatButtonModule } from '@angular/material/button'; 
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private invoiceService: InvoiceService,
-    private supplierService: SupplierService
+    private supplierService: SupplierService,
+    private router: Router // Inject Router
   ) {}
 
   ngOnInit() {
@@ -38,13 +40,13 @@ export class HomeComponent implements OnInit {
       invoices: this.invoiceService.getInvoices().pipe(
         catchError(error => {
           console.error('Greška prilikom dohvata računa:', error);
-          return [];
+          return of([]); // Bolje vrati Observable od praznog niza, radi kompatibilnosti sa forkJoin
         })
       ),
-      suppliers: this.supplierService.read_suppliers().pipe(
+      suppliers: this.supplierService.read_suppliers().pipe( // Promijenjeno na read_suppliers()
         catchError(error => {
           console.error('Greška prilikom dohvata dobavljača:', error);
-          return [];
+          return of([]); // I ovde vraćamo Observable
         })
       )
     }).subscribe(({ invoices, suppliers }) => {
@@ -57,7 +59,7 @@ export class HomeComponent implements OnInit {
         console.log(`Račun ID: ${invoice.id}, Dobavljač ID: ${invoice.supplier_id}, Dobavljač: ${supplierName}`);
         return {
           ...invoice,
-          date: new Date(invoice.date).toISOString(),
+          date: this.formatDate(invoice.date), // Koristimo funkciju za formatiranje datuma
           supplier: supplierName,
         };
       });
@@ -65,13 +67,32 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  // Dodajemo funkciju za formatiranje datuma u lokalni format
+  formatDate(date: string): string {
+    // Ukloni tačke i preformatiraj datum
+    const cleanedDate = date.replace(/\./g, '').trim(); // Ukloni tačke
+    const [day, month, year] = cleanedDate.split(' '); // Podijeli string po razmacima
+  
+    // Kreiraj novi datum
+    const parsedDate = new Date(`${year}-${month}-${day}`);
+    
+    if (isNaN(parsedDate.getTime())) {
+      console.error(`Nepoznat datum: ${cleanedDate}`);
+      return 'Nepoznat datum'; // Ako datum nije validan, vrati ovu poruku
+    }
+    
+    return parsedDate.toLocaleDateString(); // Vraća lokalni datum u čitljivijem formatu
+  }
+
   getSupplierName(supplierId: number): string {
     console.log(`Tražim dobavljača s ID-om: ${supplierId}`);
-    // Ispiši sve dobavljače da provjeriš njihove ID-eve
-    console.log('Svi dobavljači:', this.suppliers);
     
     const supplier = this.suppliers.find(s => s.id === supplierId);
-    console.log(`Pronađen dobavljač:`, supplier);
     return supplier ? supplier.supplier_name : 'Nepoznat dobavljač';
+  }
+
+  // Nova metoda za dodavanje računa
+  onAddInvoice() {
+    this.router.navigate(['/add-invoice']);
   }
 }
