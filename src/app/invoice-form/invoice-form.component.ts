@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Invoice } from '../models/invoice.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -37,14 +38,15 @@ export class InvoiceFormComponent {
   constructor(
     private fb: FormBuilder,
     private invoiceService: InvoiceService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar 
   ) {
     this.invoiceForm = this.fb.group({
       invoice_number: ['', Validators.required],
       date: ['', Validators.required],
       supplier_id: ['', Validators.required],
       cost_code_id: ['', Validators.required],
-      cost_center_code_id: ['', Validators.required],
+      cost_center_id: ['', Validators.required],
       netto_amount: ['', [Validators.required, Validators.min(0)]],
     });
   }
@@ -73,32 +75,59 @@ export class InvoiceFormComponent {
     });
   }
 
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Dodaj 1 jer su mjeseci 0-indeksirani
+    const day = String(date.getDate()).padStart(2, '0'); // Dodaj nule ispred dana/mjeseca ako su jednocifreni
+    return `${year}-${month}-${day}`; // Vraća datum u formatu YYYY-MM-DD
+  }
+
+
   onSubmit() {
     if (this.invoiceForm.invalid) {
       console.error('Form is invalid');
-      return; 
+      return;
     }
+  
+    // Prvo dohvatimo trenutnog korisnika
+    this.invoiceService.getCurrentUser().subscribe({
+      next: (user) => {
+        const invoice: Invoice = {
+          id: 0,  
+          invoice_number: this.invoiceForm.get('invoice_number')?.value,
+          date: this.formatDate(this.invoiceForm.get('date')?.value),  // Formatiranje datuma
+          netto_amount: this.invoiceForm.get('netto_amount')?.value,
+          cost_code_id: this.invoiceForm.get('cost_code_id')?.value,
+          cost_center_id: this.invoiceForm.get('cost_center_id')?.value,
+          supplier_id: this.invoiceForm.get('supplier_id')?.value,
+          user_id: user.id,  
+          supplier: this.invoiceForm.get('supplier')?.value 
+        };
+  
+        this.invoiceService.createInvoice(invoice).subscribe({
+          next: (response) => {
+            console.log('Invoice created successfully:', response);
+            // Preusmjeravanje na početnu stranicu
+          this.router.navigate(['/home']);
 
-    const invoice: Invoice = {
-      id: 0,  
-      invoice_number: this.invoiceForm.get('invoice_number')?.value,
-      date: this.invoiceForm.get('date')?.value,
-      netto_amount: this.invoiceForm.get('netto_amount')?.value,
-      cost_code_id: this.invoiceForm.get('cost_code_id')?.value,
-      cost_center_id: this.invoiceForm.get('cost_center_id')?.value,
-      supplier_id: this.invoiceForm.get('supplier_id')?.value,
-      user_id: 0, 
-      supplier: this.invoiceForm.get('supplier')?.value 
-    };
-
-    this.invoiceService.createInvoice(invoice).subscribe({
-      next: (response) => {
-        console.log('Invoice created successfully:', response);
-        
+          // Prikaz Snackbar poruke
+          this.snackBar.open('Invoice created successfully!', 'Close', {
+            duration: 3000, // 3 seconds
+          });
+          },
+          error: (error) => {
+            console.error('Error creating invoice:', error);
+            // Prikaz Snackbar poruke o neuspjehu
+          this.snackBar.open('Failed to create invoice. Please try again.', 'Close', {
+            duration: 3000, // 3 seconds
+          });
+          }
+        });
       },
       error: (error) => {
-        console.error('Error creating invoice:', error);
+        console.error('Error fetching current user:', error);
       }
     });
   }
+
 }

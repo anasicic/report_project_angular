@@ -35,18 +35,17 @@ export class HomeComponent implements OnInit {
   }
 
   loadData() {
-    // Čekamo da se učitaju i računi i dobavljači koristeći forkJoin
     forkJoin({
       invoices: this.invoiceService.getInvoices().pipe(
         catchError(error => {
           console.error('Greška prilikom dohvata računa:', error);
-          return of([]); // Bolje vrati Observable od praznog niza, radi kompatibilnosti sa forkJoin
+          return of([]); 
         })
       ),
-      suppliers: this.supplierService.read_suppliers().pipe( // Promijenjeno na read_suppliers()
+      suppliers: this.supplierService.read_suppliers().pipe( 
         catchError(error => {
           console.error('Greška prilikom dohvata dobavljača:', error);
-          return of([]); // I ovde vraćamo Observable
+          return of([]); 
         })
       )
     }).subscribe(({ invoices, suppliers }) => {
@@ -67,21 +66,20 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // Dodajemo funkciju za formatiranje datuma u lokalni format
-  formatDate(date: string): string {
-    // Ukloni tačke i preformatiraj datum
-    const cleanedDate = date.replace(/\./g, '').trim(); // Ukloni tačke
-    const [day, month, year] = cleanedDate.split(' '); // Podijeli string po razmacima
   
-    // Kreiraj novi datum
+  formatDate(date: string): string {
+    
+    const cleanedDate = date.replace(/\./g, '').trim(); 
+    const [day, month, year] = cleanedDate.split(' '); 
+    
     const parsedDate = new Date(`${year}-${month}-${day}`);
     
     if (isNaN(parsedDate.getTime())) {
       console.error(`Nepoznat datum: ${cleanedDate}`);
-      return 'Nepoznat datum'; // Ako datum nije validan, vrati ovu poruku
+      return 'Nepoznat datum'; 
     }
     
-    return parsedDate.toLocaleDateString(); // Vraća lokalni datum u čitljivijem formatu
+    return parsedDate.toLocaleDateString(); 
   }
 
   getSupplierName(supplierId: number): string {
@@ -91,7 +89,7 @@ export class HomeComponent implements OnInit {
     return supplier ? supplier.supplier_name : 'Nepoznat dobavljač';
   }
 
-  // Nova metoda za dodavanje računa
+  
   onAddInvoice() {
     this.router.navigate(['/add-invoice']);
   }

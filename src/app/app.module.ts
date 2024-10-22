@@ -25,6 +25,7 @@ import { HomeComponent } from './home/home.component';
 import { RegistrationComponent } from './registration/registration.component'; 
 import { LoginComponent } from './login/login.component'; 
 import { InvoiceFormComponent } from './invoice-form/invoice-form.component'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { InvoiceFormComponent } from './invoice-form/invoice-form.component';
     MatDatepickerModule,
     BrowserAnimationsModule,
     MatSelectModule,
+    MatSnackBarModule,
     
     // Standalone components
     HomeComponent, 

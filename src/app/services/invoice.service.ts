@@ -12,6 +12,7 @@ export class InvoiceService {
   private suppliersUrl = 'http://localhost:8000/user/suppliers'; 
   private typeOfCostsUrl = 'http://localhost:8000/user/type-of-costs'; 
   private costCentersUrl = 'http://localhost:8000/user/cost-centers'; 
+  private currentUserUrl = 'http://localhost:8000/user/current_user'
 
   constructor(private http: HttpClient) { }
 
@@ -27,6 +28,15 @@ export class InvoiceService {
     return headers;
   }
 
+
+  // **Dohvati trenutnog korisnika**
+  get_current_user(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}current_user`, { headers: this.createHeaders() })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   getInvoices(): Observable<Invoice[]> {
     return this.http.get<Invoice[]>(this.apiUrl, { headers: this.createHeaders() })
       .pipe(
@@ -34,12 +44,13 @@ export class InvoiceService {
       );
   }
 
-  createInvoice(invoice: Invoice): Observable<Invoice> {
-    return this.http.post<Invoice>(`${this.apiUrl}create-invoice`, invoice, { headers: this.createHeaders() })
+  // **Stvaranje nove fakture (invoice)**
+  createInvoice(invoice: Invoice): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}create-invoice`, invoice, { headers: this.createHeaders() })  // Dodani headers
       .pipe(
         catchError(this.handleError)
       );
-}
+  }
 
   // Dohvati dobavljače
   getSuppliers(): Observable<any[]> {
@@ -60,6 +71,14 @@ export class InvoiceService {
   // Dohvati centre troškova
   getCostCenters(): Observable<any[]> {
     return this.http.get<any[]>(this.costCentersUrl, { headers: this.createHeaders() })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // **Dohvati trenutnog korisnika**
+  getCurrentUser(): Observable<any> {
+    return this.http.get<any>(this.currentUserUrl, { headers: this.createHeaders() })
       .pipe(
         catchError(this.handleError)
       );

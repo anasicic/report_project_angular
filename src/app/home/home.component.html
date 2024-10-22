@@ -14,7 +14,7 @@
     </ng-container>
 
     <ng-container matColumnDef="supplier">
-      <th mat-header-cell *matHeaderCellDef> Dobavljač </th>
+      <th mat-header-cell *matHeaderCellDef> Supplier </th>
       <td mat-cell *matCellDef="let invoice"> {{ invoice.supplier }} </td>
     </ng-container>
 
@@ -24,7 +24,7 @@
     </ng-container>
 
     <ng-container matColumnDef="netto_amount">
-      <th mat-header-cell *matHeaderCellDef> Netto Amount </th>
+      <th mat-header-cell *matHeaderCellDef> Netto Amount (EUR) </th>
       <td mat-cell *matCellDef="let invoice"> {{ invoice.netto_amount | number:'1.2-2' }} </td>
     </ng-container>
 

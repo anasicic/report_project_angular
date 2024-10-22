@@ -51,12 +51,12 @@
     <!-- Cost Center Code Selection -->
     <mat-form-field appearance="fill">
       <mat-label>Cost center name</mat-label>
-      <mat-select formControlName="cost_center_code_id" required>
+      <mat-select formControlName="cost_center_id" required>
         <mat-option *ngFor="let center of costCenters" [value]="center.id">
           {{ center.cost_center_name }} 
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="invoiceForm.get('cost_center_code_id')?.hasError('required')">
+      <mat-error *ngIf="invoiceForm.get('cost_center_id')?.hasError('required')">
         Cost center is required.
       </mat-error>
     </mat-form-field>
