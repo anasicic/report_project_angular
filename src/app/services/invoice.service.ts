@@ -43,6 +43,27 @@ export class InvoiceService {
         catchError(this.handleError)
       );
   }
+  
+  // Dohvati račun po ID-u
+  getInvoiceById(invoiceId: number): Observable<Invoice> {
+    return this.http.get<Invoice>(`${this.apiUrl}${invoiceId}`, { headers: this.createHeaders() })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+    // Dodajte metodu za ažuriranje računa
+  updateInvoice(invoice: Invoice): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}${invoice.id}`, invoice, { headers: this.createHeaders() })
+      .pipe(catchError(this.handleError));
+  }
+
+  // Dodajte metodu za brisanje računa
+  deleteInvoice(invoiceId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}${invoiceId}`, { headers: this.createHeaders() })
+      .pipe(catchError(this.handleError));
+  }
+
 
   // **Stvaranje nove fakture (invoice)**
   createInvoice(invoice: Invoice): Observable<any> {
@@ -90,3 +111,4 @@ export class InvoiceService {
     return throwError(() => new Error(error.message || 'Something went wrong'));
   }
 }
+

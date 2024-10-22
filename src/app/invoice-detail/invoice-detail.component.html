@@ -1,0 +1,49 @@
+<div class="invoice-detail-container">
+    <h2 class="invoice-title">Invoice Details</h2>
+  
+    <div class="invoice-info">
+      <div class="info-row">
+        <label class="info-label">Invoice Number:</label>
+        <span class="info-value">{{ invoice?.invoice_number }}</span>
+      </div>
+      <div class="info-row">
+        <label class="info-label">Date:</label>
+        <span class="info-value">{{ invoice?.date }}</span>
+      </div>
+      <div class="info-row">
+        <label class="info-label">Netto Amount:</label>
+        <span class="info-value">{{ invoice?.netto_amount | number:'1.2-2' }} EUR</span>
+      </div>
+      
+      <div class="info-row">
+        <label class="info-label">Supplier:</label>
+        <span class="info-value">{{ invoice?.supplier }}</span>
+      </div>
+  
+      <div class="info-row">
+        <label class="info-label">Cost Code:</label>
+        <span class="info-value">{{ invoice?.cost_code }}</span>
+      </div>
+  
+      <div class="info-row">
+        <label class="info-label">Cost Name:</label>
+        <span class="info-value">{{ invoice?.cost_name }}</span>
+      </div>
+  
+      <div class="info-row">
+        <label class="info-label">Cost Center Code:</label>
+        <span class="info-value">{{ invoice?.cost_center_code }}</span>
+      </div>
+  
+      <div class="info-row">
+        <label class="info-label">Cost Center Name:</label>
+        <span class="info-value">{{ invoice?.cost_center_name }}</span>
+      </div>
+    </div>
+  
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" class="action-button">Update</button>
+      <button mat-raised-button color="warn" class="action-button">Delete</button>
+    </div>
+  </div>
+  

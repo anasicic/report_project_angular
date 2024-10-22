@@ -10,12 +10,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button'; 
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router'; // Import Router
+import { Router, RouterModule } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
