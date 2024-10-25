@@ -10,9 +10,13 @@ import { Invoice } from '../models/invoice.model';
 export class InvoiceService {
   private apiUrl = 'http://localhost:8000/invoices/'; 
   private suppliersUrl = 'http://localhost:8000/user/suppliers'; 
-  private typeOfCostsUrl = 'http://localhost:8000/user/type-of-costs'; 
-  private costCentersUrl = 'http://localhost:8000/user/cost-centers'; 
-  private currentUserUrl = 'http://localhost:8000/user/current_user'
+  private typeOfCostsUrl = 'http://localhost:8000/invoices/type-of-costs'; 
+  private costCentersUrl = 'http://localhost:8000/invoices/cost-centers'; 
+  private currentUserUrl = 'http://localhost:8000/invoices/current_user';
+
+  private supplierUrl = `${this.apiUrl}supplier/`;
+  private typeOfCostUrl = `${this.apiUrl}type-of-cost/`;
+  private costCenterUrl = `${this.apiUrl}cost-center/`;
 
   constructor(private http: HttpClient) { }
 
@@ -28,87 +32,74 @@ export class InvoiceService {
     return headers;
   }
 
-
-  // **Dohvati trenutnog korisnika**
   get_current_user(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}current_user`, { headers: this.createHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
   }
 
   getInvoices(): Observable<Invoice[]> {
     return this.http.get<Invoice[]>(this.apiUrl, { headers: this.createHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
   }
   
-  // Dohvati račun po ID-u
   getInvoiceById(invoiceId: number): Observable<Invoice> {
     return this.http.get<Invoice>(`${this.apiUrl}${invoiceId}`, { headers: this.createHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
   }
 
-    // Dodajte metodu za ažuriranje računa
   updateInvoice(invoice: Invoice): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}${invoice.id}`, invoice, { headers: this.createHeaders() })
       .pipe(catchError(this.handleError));
   }
 
-  // Dodajte metodu za brisanje računa
   deleteInvoice(invoiceId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}${invoiceId}`, { headers: this.createHeaders() })
       .pipe(catchError(this.handleError));
   }
 
-
-  // **Stvaranje nove fakture (invoice)**
   createInvoice(invoice: Invoice): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}create-invoice`, invoice, { headers: this.createHeaders() })  // Dodani headers
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post<any>(`${this.apiUrl}create-invoice`, invoice, { headers: this.createHeaders() })
+      .pipe(catchError(this.handleError));
   }
 
-  // Dohvati dobavljače
   getSuppliers(): Observable<any[]> {
     return this.http.get<any[]>(this.suppliersUrl, { headers: this.createHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
   }
 
-  // Dohvati tipove troškova
   getTypeOfCosts(): Observable<any[]> {
     return this.http.get<any[]>(this.typeOfCostsUrl, { headers: this.createHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
   }
 
-  // Dohvati centre troškova
   getCostCenters(): Observable<any[]> {
     return this.http.get<any[]>(this.costCentersUrl, { headers: this.createHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
   }
 
-  // **Dohvati trenutnog korisnika**
   getCurrentUser(): Observable<any> {
     return this.http.get<any>(this.currentUserUrl, { headers: this.createHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
   }
 
-  // Error handling
+  // **New methods for fetching individual items by ID**
+  getSupplierById(supplierId: number): Observable<any> {
+    return this.http.get<any>(`${this.supplierUrl}${supplierId}`, { headers: this.createHeaders() })
+      .pipe(catchError(this.handleError));
+  }
+
+  getTypeOfCostById(typeOfCostId: number): Observable<any> {
+    return this.http.get<any>(`${this.typeOfCostUrl}${typeOfCostId}`, { headers: this.createHeaders() })
+      .pipe(catchError(this.handleError));
+  }
+
+  getCostCenterById(costCenterId: number): Observable<any> {
+    return this.http.get<any>(`${this.costCenterUrl}${costCenterId}`, { headers: this.createHeaders() })
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
-    console.error('An error occurred:', error); // Log the error to the console
+    console.error('An error occurred:', error);
     return throwError(() => new Error(error.message || 'Something went wrong'));
   }
 }
-

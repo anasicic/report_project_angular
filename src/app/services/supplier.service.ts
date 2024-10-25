@@ -7,7 +7,7 @@ import { Supplier } from '../models/supplier.model';
   providedIn: 'root',
 })
 export class SupplierService {
-  private apiUrl = 'http://localhost:8000/user/suppliers'; // Promijenite na ispravan endpoint
+  private apiUrl = 'http://localhost:8000/user/suppliers'; 
 
   constructor(private http: HttpClient) {}
 

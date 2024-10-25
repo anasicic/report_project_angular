@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 import { SupplierService } from '../services/supplier.service';
 import { Supplier } from '../models/supplier.model';
 import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon'; 
-import { MatButtonModule } from '@angular/material/button'; 
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router, RouterModule } from '@angular/router'; // Import Router
@@ -22,7 +22,7 @@ import { Router, RouterModule } from '@angular/router'; // Import Router
 export class HomeComponent implements OnInit {
   invoices = new MatTableDataSource<Invoice>();
   suppliers: Supplier[] = []; 
-  displayedColumns: string[] = ['invoice_number', 'supplier', 'date', 'netto_amount'];
+  displayedColumns: string[] = ['invoice_number', 'supplier', 'date', 'netto_amount', 'actions']; // Added 'actions'
 
   constructor(
     private invoiceService: InvoiceService,
@@ -66,9 +66,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  
   formatDate(date: string): string {
-    
     const cleanedDate = date.replace(/\./g, '').trim(); 
     const [day, month, year] = cleanedDate.split(' '); 
     
@@ -89,8 +87,24 @@ export class HomeComponent implements OnInit {
     return supplier ? supplier.supplier_name : 'Nepoznat dobavljač';
   }
 
-  
   onAddInvoice() {
     this.router.navigate(['/add-invoice']);
+  }
+
+  editInvoice(invoiceId: number): void {
+    this.router.navigate(['/invoice-detail', invoiceId]);
+  }
+
+  deleteInvoice(invoiceId: number): void {
+    if (confirm('Jeste li sigurni da želite obrisati ovu fakturu?')) {
+      this.invoiceService.deleteInvoice(invoiceId).subscribe({
+        next: () => {
+          this.loadData(); // Ponovno učitajte račune nakon brisanja
+        },
+        error: (error) => {
+          console.error('Greška prilikom brisanja računa:', error);
+        }
+      });
+    }
   }
 }
