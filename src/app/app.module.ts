@@ -26,7 +26,9 @@ import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component'; 
 import { InvoiceFormComponent } from './invoice-form/invoice-form.component'; 
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
+import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 @NgModule({
@@ -51,6 +53,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     LoginComponent,
     InvoiceFormComponent,
     InvoiceDetailComponent,
+    InvoiceEditComponent,
   ],
 
   providers: [

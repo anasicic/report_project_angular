@@ -3,13 +3,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Invoice } from '../models/invoice.model';
+import { SupplierBase } from '../models/supplier.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvoiceService {
   private apiUrl = 'http://localhost:8000/invoices/'; 
-  private suppliersUrl = 'http://localhost:8000/user/suppliers'; 
+  private allSuppliersUrl = 'http://localhost:8000/invoices/data/suppliers'; 
+  private suppliersUrl = 'http://localhost:8000/invoices/suppliers'; 
   private typeOfCostsUrl = 'http://localhost:8000/invoices/type-of-costs'; 
   private costCentersUrl = 'http://localhost:8000/invoices/cost-centers'; 
   private currentUserUrl = 'http://localhost:8000/invoices/current_user';
@@ -62,8 +64,8 @@ export class InvoiceService {
       .pipe(catchError(this.handleError));
   }
 
-  getSuppliers(): Observable<any[]> {
-    return this.http.get<any[]>(this.suppliersUrl, { headers: this.createHeaders() })
+  getSuppliers(): Observable<SupplierBase[]> {
+    return this.http.get<SupplierBase[]>(this.allSuppliersUrl, { headers: this.createHeaders() })
       .pipe(catchError(this.handleError));
   }
 
@@ -83,8 +85,8 @@ export class InvoiceService {
   }
 
   // **New methods for fetching individual items by ID**
-  getSupplierById(supplierId: number): Observable<any> {
-    return this.http.get<any>(`${this.supplierUrl}${supplierId}`, { headers: this.createHeaders() })
+  getSupplierById(supplierId: number): Observable<SupplierBase> {
+    return this.http.get<SupplierBase>(`${this.supplierUrl}${supplierId}`, { headers: this.createHeaders() })
       .pipe(catchError(this.handleError));
   }
 

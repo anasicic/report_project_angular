@@ -27,7 +27,7 @@
       <mat-label>Supplier</mat-label>
       <mat-select formControlName="supplier_id" required>
         <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
-          {{ supplier.supplier_name }} <!-- Change to supplier.supplier_name -->
+          {{ supplier.supplier_name }}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="invoiceForm.get('supplier_id')?.hasError('required')">
@@ -40,7 +40,7 @@
       <mat-label>Cost code name</mat-label>
       <mat-select formControlName="cost_code_id" required>
         <mat-option *ngFor="let cost of typeOfCosts" [value]="cost.id">
-          {{ cost.cost_name }} <!-- Change to cost.name -->
+          {{ cost.cost_name }}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="invoiceForm.get('cost_code_id')?.hasError('required')">
@@ -74,10 +74,10 @@
     </mat-form-field>
 
     <!-- Submit Button -->
-    <button mat-raised-button color="primary" type="submit" [disabled]="invoiceForm.invalid">
-      Submit
-    </button>
+    <div class="submit-button">
+      <button mat-raised-button color="primary" type="submit" [disabled]="invoiceForm.invalid">
+        Submit
+      </button>
+    </div>
   </form>
 </div>
-
-
