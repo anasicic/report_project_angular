@@ -76,13 +76,16 @@ export class InvoiceEditComponent implements OnInit {
 
   loadTypeOfCosts(): void {
     this.invoiceService.getTypeOfCosts().subscribe((types) => {
-      this.typeOfCosts = types; 
+      this.typeOfCosts = types;
+      console.log('Loaded type of costs:', this.typeOfCosts); 
     });
   }
-
+  
   loadCostCenters(): void {
     this.invoiceService.getCostCenters().subscribe((centers) => {
-      this.costCenters = centers; 
+      console.log('Received cost centers:', centers);
+      this.costCenters = centers;
+      console.log('Loaded cost centers:', this.costCenters); 
     });
   }
 

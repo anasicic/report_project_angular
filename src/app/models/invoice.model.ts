@@ -9,8 +9,8 @@ export interface Invoice {
     user_id: number; 
     supplier: string;
     cost_code?: number; 
-    cost_name?: string; 
-    cost_center_name?: string; 
+    cost_name: string; 
+    cost_center_name: string; 
     cost_center_code?: number;
     details?: any[]; 
 }

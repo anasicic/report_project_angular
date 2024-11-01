@@ -4,6 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Invoice } from '../models/invoice.model';
 import { SupplierBase } from '../models/supplier.model';
+import { CostCenterBase } from '../models/cost_center.model';
+import { TypeOfCostBase } from '../models/type_of_cost.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +13,13 @@ import { SupplierBase } from '../models/supplier.model';
 export class InvoiceService {
   private apiUrl = 'http://localhost:8000/invoices/'; 
   private allSuppliersUrl = 'http://localhost:8000/invoices/data/suppliers'; 
-  private suppliersUrl = 'http://localhost:8000/invoices/suppliers'; 
-  private typeOfCostsUrl = 'http://localhost:8000/invoices/type-of-costs'; 
-  private costCentersUrl = 'http://localhost:8000/invoices/cost-centers'; 
-  private currentUserUrl = 'http://localhost:8000/invoices/current_user';
+  private typeOfCostsUrl = 'http://localhost:8000/invoices/data/type-of-costs'; 
+  private costCentersUrl = 'http://localhost:8000/invoices/data/cost-centers'; 
+  private currentUserUrl = 'http://localhost:8000/user/current_user';
 
   private supplierUrl = `${this.apiUrl}supplier/`;
-  private typeOfCostUrl = `${this.apiUrl}type-of-cost/`;
-  private costCenterUrl = `${this.apiUrl}cost-center/`;
+  private typeOfCostUrl = `${this.apiUrl}type_of_cost/`;
+  private costCenterUrl = `${this.apiUrl}cost_center/`;
 
   constructor(private http: HttpClient) { }
 
@@ -28,7 +29,7 @@ export class InvoiceService {
     let headers = new HttpHeaders();
 
     if (token) {
-      headers = headers.set('Authorization', `Bearer ${token}`);
+      headers = headers.set('Authorization', `Bearer ${token}`)
     }
 
     return headers;
@@ -69,13 +70,13 @@ export class InvoiceService {
       .pipe(catchError(this.handleError));
   }
 
-  getTypeOfCosts(): Observable<any[]> {
-    return this.http.get<any[]>(this.typeOfCostsUrl, { headers: this.createHeaders() })
+  getTypeOfCosts(): Observable<TypeOfCostBase[]> {
+    return this.http.get<TypeOfCostBase[]>(this.typeOfCostsUrl, { headers: this.createHeaders() })
       .pipe(catchError(this.handleError));
   }
 
-  getCostCenters(): Observable<any[]> {
-    return this.http.get<any[]>(this.costCentersUrl, { headers: this.createHeaders() })
+  getCostCenters(): Observable<CostCenterBase[]> {
+    return this.http.get<CostCenterBase[]>(this.costCentersUrl, { headers: this.createHeaders() })
       .pipe(catchError(this.handleError));
   }
 
@@ -90,13 +91,13 @@ export class InvoiceService {
       .pipe(catchError(this.handleError));
   }
 
-  getTypeOfCostById(typeOfCostId: number): Observable<any> {
-    return this.http.get<any>(`${this.typeOfCostUrl}${typeOfCostId}`, { headers: this.createHeaders() })
+  getTypeOfCostById(typeOfCostId: number): Observable<TypeOfCostBase> {
+    return this.http.get<TypeOfCostBase>(`${this.typeOfCostUrl}${typeOfCostId}`, { headers: this.createHeaders() })
       .pipe(catchError(this.handleError));
   }
 
-  getCostCenterById(costCenterId: number): Observable<any> {
-    return this.http.get<any>(`${this.costCenterUrl}${costCenterId}`, { headers: this.createHeaders() })
+  getCostCenterById(costCenterId: number): Observable<CostCenterBase> {
+    return this.http.get<CostCenterBase>(`${this.costCenterUrl}${costCenterId}`, { headers: this.createHeaders() })
       .pipe(catchError(this.handleError));
   }
 

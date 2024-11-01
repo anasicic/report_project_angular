@@ -101,7 +101,9 @@ export class InvoiceFormComponent {
           cost_center_id: this.invoiceForm.get('cost_center_id')?.value,
           supplier_id: this.invoiceForm.get('supplier_id')?.value,
           user_id: user.id,  
-          supplier: this.invoiceForm.get('supplier')?.value 
+          supplier: this.invoiceForm.get('supplier')?.value,
+          cost_name: this.invoiceForm.get('cost_name')?.value,
+          cost_center_name: this.invoiceForm.get('cost_center_name')?.value 
         };
   
         this.invoiceService.createInvoice(invoice).subscribe({
