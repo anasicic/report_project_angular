@@ -28,6 +28,7 @@ import { InvoiceFormComponent } from './invoice-form/invoice-form.component';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
@@ -54,13 +55,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     InvoiceFormComponent,
     InvoiceDetailComponent,
     InvoiceEditComponent,
+    NavbarComponent,
   ],
 
   providers: [
     AuthService,
     InvoiceService,
     RegistrationService,
-    SupplierService
+    SupplierService,
   ],
 
   bootstrap: [AppComponent] // Start the application with AppComponent

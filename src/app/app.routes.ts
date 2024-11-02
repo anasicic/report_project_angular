@@ -14,7 +14,7 @@ export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'add-invoice', component: InvoiceFormComponent },
     { path: 'invoice-detail/:id', component: InvoiceDetailComponent },
-    { path: 'invoice-edit/:id', component: InvoiceEditComponent },
+    { path: 'invoice-edit/:id', component: InvoiceEditComponent }, 
 
     { path: '**', redirectTo: '' },
 ];

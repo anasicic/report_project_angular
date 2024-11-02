@@ -1,0 +1,37 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #d0e7ff; // Svijetlo plava boja
+    border-bottom: 2px solid #007bff; // Plava granica
+  }
+  
+  h1 {
+    font-size: 1.5rem; // Manji font za naslov
+    font-family: 'Arial', sans-serif; // Promijenjeni font
+    color: #333; // Boja naslova
+    margin: 0;
+  }
+  
+  nav {
+    display: flex; // Osiguraj da su linkovi u redu
+    align-items: center; // Poravnaj linkove vertikalno
+  }
+  
+  nav a {
+    margin: 0 0.5rem; // Smanji razmak između linkova
+    color: #007bff;
+    text-decoration: none;
+    font-size: 1rem; // Prilagodite veličinu fonta
+    font-family: 'Arial', sans-serif; // Promijenjeni font za linkove
+  }
+  
+  nav a:hover {
+    text-decoration: underline;
+  }
+  
+  span {
+    margin: 0 0.5rem; // Umanji razmak oko separatora
+  }
+  
