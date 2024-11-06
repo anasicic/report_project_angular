@@ -19,6 +19,7 @@ import { AuthService } from './services/auth.service';
 import { InvoiceService } from './services/invoice.service'; 
 import { RegistrationService } from './services/registration.service'; 
 import { SupplierService } from './services/supplier.service';
+import { UserService } from './services/user.service';
 
 // Import standalone components
 import { HomeComponent } from './home/home.component'; 
@@ -29,6 +30,7 @@ import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.componen
 import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NavbarComponent } from './navbar/navbar.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
@@ -56,6 +58,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     InvoiceDetailComponent,
     InvoiceEditComponent,
     NavbarComponent,
+    UserProfileComponent,
   ],
 
   providers: [
@@ -63,6 +66,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     InvoiceService,
     RegistrationService,
     SupplierService,
+    UserService,
   ],
 
   bootstrap: [AppComponent] // Start the application with AppComponent

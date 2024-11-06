@@ -1,0 +1,38 @@
+.profile-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  button {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .success {
+    color: green;
+    margin-top: 20px;
+    text-align: center;
+  }
+  

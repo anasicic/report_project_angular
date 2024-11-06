@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { InvoiceFormComponent } from './invoice-form/invoice-form.component';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 export const routes: Routes = [
@@ -15,6 +16,7 @@ export const routes: Routes = [
     { path: 'add-invoice', component: InvoiceFormComponent },
     { path: 'invoice-detail/:id', component: InvoiceDetailComponent },
     { path: 'invoice-edit/:id', component: InvoiceEditComponent }, 
+    { path: 'profile', component: UserProfileComponent },
 
     { path: '**', redirectTo: '' },
 ];
