@@ -41,9 +41,18 @@ export class AuthService {
     );
   }
 
+  getToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
   // Metoda za dekodiranje JWT tokena
   decodeToken(token: string): any {
     return this.jwtHelper.decodeToken(token);
+  }
+
+  isLoggedIn(): boolean {
+    const token = this.getToken();
+    return token != null && !this.jwtHelper.isTokenExpired(token);
   }
 
   // Metoda za preuzimanje računa

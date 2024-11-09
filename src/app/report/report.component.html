@@ -1,0 +1,30 @@
+<div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+  
+  <div *ngIf="reportData && !errorMessage">
+    <h2 class="report-title">Expense Report</h2>
+  
+    <!-- Displaying expense types -->
+    <div *ngFor="let typeOfCost of getTypesOfCost()">
+      <!-- Expense type name -->
+      <h3 class="type-title">{{ typeOfCost }}</h3>
+  
+      <!-- Table for displaying cost centers and amounts -->
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Cost Center</th>
+            <th>Amount (EUR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let costCenter of getCostCenters(typeOfCost)">
+            <td>{{ costCenter }}</td>
+            <td>{{ reportData[typeOfCost][costCenter] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

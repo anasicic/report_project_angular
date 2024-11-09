@@ -31,6 +31,7 @@ import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ReportComponent } from './report/report.component';
 
 
 
@@ -59,6 +60,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     InvoiceEditComponent,
     NavbarComponent,
     UserProfileComponent,
+    ReportComponent,
   ],
 
   providers: [

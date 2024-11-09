@@ -7,6 +7,7 @@ import { InvoiceFormComponent } from './invoice-form/invoice-form.component';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ReportComponent } from './report/report.component';
 
 
 export const routes: Routes = [
@@ -17,6 +18,7 @@ export const routes: Routes = [
     { path: 'invoice-detail/:id', component: InvoiceDetailComponent },
     { path: 'invoice-edit/:id', component: InvoiceEditComponent }, 
     { path: 'profile', component: UserProfileComponent },
+    { path: 'report', component: ReportComponent },
 
     { path: '**', redirectTo: '' },
 ];
