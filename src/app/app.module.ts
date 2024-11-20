@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; 
 import { AppRoutingModule } from './app.routes'; 
 
+
 import { AppComponent } from './app.component';
 
 import { MatTableModule } from '@angular/material/table'; 
@@ -50,6 +51,7 @@ import { ReportComponent } from './report/report.component';
     BrowserAnimationsModule,
     MatSelectModule,
     MatSnackBarModule,
+    
     
     // Standalone components
     HomeComponent, 

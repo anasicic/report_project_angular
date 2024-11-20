@@ -1,9 +1,20 @@
 <div class="navbar">
-  <h1>Invoice app</h1>
-  <nav>
-    <a routerLink="/profile">Profile</a>
-    <span>|</span>
-    <a routerLink="/report">Report</a>
-    <span>|</span>
+  <h1>Invoice App</h1>
+
+  <!-- Only show the navigation links if the user is logged in -->
+  <nav *ngIf="isLoggedIn">
+    <!-- Admin Panel and Report links are only shown for admin users -->
+    <a *ngIf="role === 'admin'" routerLink="/admin-panel">Admin Panel</a>
+    <span *ngIf="role === 'admin'">|</span> <!-- Separator for Admin links -->
+
+    <a *ngIf="role === 'admin'" routerLink="/report">Report</a>
+    <span *ngIf="role === 'admin'">|</span> <!-- Separator for Admin links -->
+
+    <!-- Profile link is only shown for regular users (non-admin) -->
+    <a *ngIf="role === 'user'" routerLink="/profile">Profile</a>
+    <span *ngIf="role === 'user'">|</span> <!-- Separator for User links -->
+
+    <!-- Logout link is shown when the user is logged in -->
+    <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
   </nav>
 </div>
