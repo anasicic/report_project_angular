@@ -9,6 +9,7 @@ import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReportComponent } from './report/report.component';
 import { AuthGuard } from './guards/auth.guards';
+import { AdministrationComponent } from './administration/administration.component';
 
 
 export const routes: Routes = [
@@ -20,6 +21,7 @@ export const routes: Routes = [
     { path: 'invoice-edit/:id', component: InvoiceEditComponent, canActivate: [AuthGuard] }, 
     { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
     { path: 'report', component: ReportComponent, canActivate: [AuthGuard] },
+    { path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard] },
 
     { path: '**', redirectTo: '' },
 ];

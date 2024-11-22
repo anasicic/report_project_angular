@@ -33,6 +33,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReportComponent } from './report/report.component';
+import { AdministrationComponent } from './administration/administration.component';
 
 
 
@@ -63,6 +64,7 @@ import { ReportComponent } from './report/report.component';
     NavbarComponent,
     UserProfileComponent,
     ReportComponent,
+    AdministrationComponent,
   ],
 
   providers: [

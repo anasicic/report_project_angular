@@ -4,7 +4,7 @@
   <!-- Only show the navigation links if the user is logged in -->
   <nav *ngIf="isLoggedIn">
     <!-- Admin Panel and Report links are only shown for admin users -->
-    <a *ngIf="role === 'admin'" routerLink="/admin-panel">Admin Panel</a>
+    <a *ngIf="role === 'admin'" routerLink="/administration">Administration</a>
     <span *ngIf="role === 'admin'">|</span> <!-- Separator for Admin links -->
 
     <a *ngIf="role === 'admin'" routerLink="/report">Report</a>
