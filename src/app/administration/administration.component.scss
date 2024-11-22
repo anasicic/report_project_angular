@@ -10,12 +10,11 @@
       border-radius: 5px;
       border: 1px solid #aad2f0;
       margin-bottom: 15px;
-      display: inline-block; /* Tekst širi element prema svojoj dužini */
       text-transform: uppercase;
       text-align: left;
-      width: 400px; /* Fiksna širina naslova kategorije */
-      margin-right: 15px; /* Razmak od desnog ruba */
-      vertical-align: middle; /* Poravnanje u istoj liniji s gumbom */
+      display: inline-block;
+      width: 400px; /* Unificirana širina za naslove */
+      margin-right: 15px; /* Razmak između naslova kategorije i gumba */
     }
   
     /* Lista stavki */
@@ -25,10 +24,11 @@
   
       /* Stavke sa kategorijama */
       .list-item {
-        display: flex; /* Koristimo flexbox za poravnanje gumba i naslova */
+        display: flex; /* Postavljanje kategorije i gumba u jedan red */
         align-items: center; /* Poravnanje po visini */
         margin: 10px 0;
-        position: relative; /* Pozicioniramo gumb unutar ovog elementa */
+        width: 100%; /* Osiguranje da element zauzima cijelu širinu */
+        justify-content: flex-start; /* Poravnanje na početak (lijevo) */
       }
   
       /* Link kategorije */
@@ -37,7 +37,8 @@
         text-decoration: none;
         color: #333;
         white-space: nowrap;
-        margin-right: 10px; /* Razmak između naziva kategorije i gumba */
+        display: inline-block;
+        width: 380px; /* Fiksna širina za kategorije (slično kao širina naslova) */
       }
   
       /* Gumb + Add */
@@ -50,8 +51,9 @@
         font-size: 14px;
         cursor: pointer;
         white-space: nowrap;
-        display: inline-block; /* Gumb u istom redu */
         width: auto; /* Gumb se neće širiti na cijeli red */
+        display: inline-block;
+        margin-left: -40px /* Pomicanje gumba malo ulijevo */
       }
   
       .icon {
