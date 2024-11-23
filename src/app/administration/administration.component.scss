@@ -1,5 +1,12 @@
 .administration {
+  display: flex; /* Koristi Flexbox za raspored lijevo/desno */
   padding: 20px;
+  
+  /* Lijeva strana (kategorije) */
+  .left-side {
+    width: 400px; /* Fiksna širina za lijevu stranu */
+    margin-right: 20px; /* Razmak između lijeve i desne strane */
+  }
 
   /* Naslovi kategorija */
   .section-title {
@@ -12,7 +19,7 @@
     margin-bottom: 15px;
     text-transform: uppercase;
     text-align: left;
-    width: 500px; /* Fiksna širina */
+    width: 100%; /* Puni prostor */
   }
 
   /* Lista stavki */
@@ -34,14 +41,13 @@
         color: #333;
         white-space: nowrap;
         display: inline-block;
-        width: 400px; /* Fiksna širina za dosljednost */
-        margin-right: -65px;
+        width: 100%; /* Puni prostor */
       }
 
       /* Grupa gumba */
       .button-group {
         display: flex;
-        gap: 10px; /* Razmak između gumba */
+        gap: 10px;
 
         /* Stilovi za gumbe */
         .add-button,
@@ -56,7 +62,7 @@
           white-space: nowrap;
           display: flex;
           align-items: center;
-          gap: 5px; /* Razmak između ikone i teksta */
+          gap: 5px;
           transition: background-color 0.2s, color 0.2s, border-color 0.2s;
         }
 
@@ -64,15 +70,15 @@
         .add-button {
           .icon {
             color: green;
-            font-weight: bold; /* Deblji simbol */
-            font-size: 18px; /* Veća veličina */
+            font-weight: bold;
+            font-size: 18px;
           }
         }
 
         /* Stil za Update */
         .update-button {
           .icon {
-            color: #666; /* Siva olovka */
+            color: #666;
             font-size: 16px;
           }
         }
@@ -85,5 +91,60 @@
         }
       }
     }
+  }
+
+  /* Desna strana (forme) */
+  .form-container {
+    flex-grow: 1; /* Ovaj dio zauzima preostali prostor */
+    max-width: 600px; /* Maksimalna širina za forme */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Razmak između formi */
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  /* Disabled submit button */
+  button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
   }
 }
