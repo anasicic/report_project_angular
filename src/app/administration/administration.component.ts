@@ -15,4 +15,9 @@ export class AdministrationComponent {
   navigateToAdd(category: string): void {
     console.log(`Navigating to add ${category}`);
   }
+
+ 
+  navigateToUpdate(category: string): void {
+    console.log('Navigating to update ${category}');
+  }
 }

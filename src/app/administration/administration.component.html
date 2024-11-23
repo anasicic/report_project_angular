@@ -1,34 +1,53 @@
 <div class="administration">
-    <h1 class="section-title">Authentication and Authorization</h1>
-    <ul>
-      <li class="list-item">
-        <a class="category-link" routerLink="/user">User</a>
+  <h1 class="section-title">Authentication and Authorization</h1>
+  <ul>
+    <li class="list-item">
+      <a class="category-link" routerLink="/user">User</a>
+      <div class="button-group">
         <button class="add-button" (click)="navigateToAdd('user')">
-          <span class="icon">+</span> Add
+          <span class="icon green">+</span> Add
         </button>
-      </li>
-    </ul>
-  
-    <h1 class="section-title">Invoice</h1>
-    <ul>
-      <li class="list-item">
-        <a class="category-link" routerLink="/cost-center">Cost Center</a>
+        <button class="update-button" (click)="navigateToUpdate('user')">
+          <span class="icon pencil">✏️</span> Update
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <h1 class="section-title">Invoice</h1>
+  <ul>
+    <li class="list-item">
+      <a class="category-link" routerLink="/cost-center">Cost Center</a>
+      <div class="button-group">
         <button class="add-button" (click)="navigateToAdd('cost-center')">
-          <span class="icon">+</span> Add
+          <span class="icon green">+</span> Add
         </button>
-      </li>
-      <li class="list-item">
-        <a class="category-link" routerLink="/type-of-cost">Type of Cost</a>
+        <button class="update-button" (click)="navigateToUpdate('cost-center')">
+          <span class="icon pencil">✏️</span> Update
+        </button>
+      </div>
+    </li>
+    <li class="list-item">
+      <a class="category-link" routerLink="/type-of-cost">Type of Cost</a>
+      <div class="button-group">
         <button class="add-button" (click)="navigateToAdd('type-of-cost')">
-          <span class="icon">+</span> Add
+          <span class="icon green">+</span> Add
         </button>
-      </li>
-      <li class="list-item">
-        <a class="category-link" routerLink="/supplier">Supplier</a>
+        <button class="update-button" (click)="navigateToUpdate('type-of-cost')">
+          <span class="icon pencil">✏️</span> Update
+        </button>
+      </div>
+    </li>
+    <li class="list-item">
+      <a class="category-link" routerLink="/supplier">Supplier</a>
+      <div class="button-group">
         <button class="add-button" (click)="navigateToAdd('supplier')">
-          <span class="icon">+</span> Add
+          <span class="icon green">+</span> Add
         </button>
-      </li>
-    </ul>
-  </div>
-  
+        <button class="update-button" (click)="navigateToUpdate('supplier')">
+          <span class="icon pencil">✏️</span> Update
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
