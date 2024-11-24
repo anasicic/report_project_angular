@@ -1,111 +1,134 @@
 <div class="administration">
-  <div class="left-side">
-    <h1 class="section-title">Authentication and Authorization</h1>
-    <ul>
-      <li class="list-item">
-        <a class="category-link" routerLink="/user" (click)="setCurrentCategory('user')">User</a>
-        <div class="button-group">
-          <button class="add-button" (click)="navigateToAdd('user')">
-            <span class="icon green">+</span> Add
-          </button>
-          <button class="update-button" (click)="navigateToUpdate('user')">
-            <span class="icon pencil">✏️</span> Update
-          </button>
-        </div>
-      </li>
-    </ul>
+  <!-- Main container for two-column layout -->
+  <div class="layout">
+    <!-- Left column: Categories and buttons -->
+    <div class="left-panel">
+      <h1 class="section-title">Authentication and Authorization</h1>
+      <ul>
+        <li class="list-item">
+          <a class="category-link" (click)="onCategoryChange('user')">User</a>
+          <div class="button-group">
+            <button class="add-button" (click)="onCategoryChange('user')">
+              <span class="icon green">+</span> Add
+            </button>
+            <button class="update-button" (click)="onCategoryChange('user')">
+              <span class="icon pencil">✏️</span> Update
+            </button>
+          </div>
+        </li>
+      </ul>
 
-    <h1 class="section-title">Invoice</h1>
-    <ul>
-      <li class="list-item">
-        <a class="category-link" routerLink="/cost-center" (click)="setCurrentCategory('cost-center')">Cost Center</a>
-        <div class="button-group">
-          <button class="add-button" (click)="navigateToAdd('cost-center')">
-            <span class="icon green">+</span> Add
-          </button>
-          <button class="update-button" (click)="navigateToUpdate('cost-center')">
-            <span class="icon pencil">✏️</span> Update
-          </button>
-        </div>
-      </li>
-      <li class="list-item">
-        <a class="category-link" routerLink="/type-of-cost" (click)="setCurrentCategory('type-of-cost')">Type of Cost</a>
-        <div class="button-group">
-          <button class="add-button" (click)="navigateToAdd('type-of-cost')">
-            <span class="icon green">+</span> Add
-          </button>
-          <button class="update-button" (click)="navigateToUpdate('type-of-cost')">
-            <span class="icon pencil">✏️</span> Update
-          </button>
-        </div>
-      </li>
-      <li class="list-item">
-        <a class="category-link" routerLink="/supplier" (click)="setCurrentCategory('supplier')">Supplier</a>
-        <div class="button-group">
-          <button class="add-button" (click)="navigateToAdd('supplier')">
-            <span class="icon green">+</span> Add
-          </button>
-          <button class="update-button" (click)="navigateToUpdate('supplier')">
-            <span class="icon pencil">✏️</span> Update
-          </button>
-        </div>
-      </li>
-    </ul>
-  </div>
+      <h1 class="section-title">Invoice</h1>
+      <ul>
+        <li class="list-item">
+          <a class="category-link" (click)="onCategoryChange('cost-center')">Cost Center</a>
+          <div class="button-group">
+            <button class="add-button" (click)="onCategoryChange('cost-center')">
+              <span class="icon green">+</span> Add
+            </button>
+            <button class="update-button" (click)="onCategoryChange('cost-center')">
+              <span class="icon pencil">✏️</span> Update
+            </button>
+          </div>
+        </li>
+        <li class="list-item">
+          <a class="category-link" (click)="onCategoryChange('type-of-cost')">Type of Cost</a>
+          <div class="button-group">
+            <button class="add-button" (click)="onCategoryChange('type-of-cost')">
+              <span class="icon green">+</span> Add
+            </button>
+            <button class="update-button" (click)="onCategoryChange('type-of-cost')">
+              <span class="icon pencil">✏️</span> Update
+            </button>
+          </div>
+        </li>
+        <li class="list-item">
+          <a class="category-link" (click)="onCategoryChange('supplier')">Supplier</a>
+          <div class="button-group">
+            <button class="add-button" (click)="onCategoryChange('supplier')">
+              <span class="icon green">+</span> Add
+            </button>
+            <button class="update-button" (click)="onCategoryChange('supplier')">
+              <span class="icon pencil">✏️</span> Update
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
 
-  <div class="form-container">
-    <div *ngIf="currentFormType === 'add'">
+    <!-- Right column: Dynamic forms based on selected category -->
+    <div class="right-panel">
+      <!-- Form for User -->
       <div *ngIf="currentCategory === 'user'">
-        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-          <label for="username">Username</label>
-          <input id="username" formControlName="username">
-          
-          <label for="email">Email</label>
-          <input id="email" formControlName="email">
-          
-          <label for="first_name">First Name</label>
-          <input id="first_name" formControlName="first_name">
-          
-          <label for="last_name">Last Name</label>
-          <input id="last_name" formControlName="last_name">
-          
-          <label for="role">Role</label>
-          <input id="role" formControlName="role">
-          
-          <label for="is_active">Active</label>
-          <input type="checkbox" id="is_active" formControlName="is_active">
-          
-          <button type="submit" [disabled]="userForm.invalid">Submit</button>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input id="username" formControlName="username" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" formControlName="email" type="email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input id="first_name" formControlName="first_name" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input id="last_name" formControlName="last_name" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="role">Role</label>
+            <input id="role" formControlName="role" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" formControlName="password" type="password" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="is_active">Active</label>
+            <input id="is_active" formControlName="is_active" type="checkbox" class="form-check-input">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
 
-      <div *ngIf="currentCategory === 'supplier'">
-        <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()">
-          <label for="supplier_name">Supplier Name</label>
-          <input id="supplier_name" formControlName="supplier_name">
-          
-          <button type="submit" [disabled]="supplierForm.invalid">Submit</button>
-        </form>
-      </div>
-
+      <!-- Form for Cost Center -->
       <div *ngIf="currentCategory === 'cost-center'">
-        <form [formGroup]="costCenterForm" (ngSubmit)="onSubmit()">
-          <label for="cost_center_name">Cost Center Name</label>
-          <input id="cost_center_name" formControlName="cost_center_name">
-          
-          <label for="cost_center_code">Cost Center Code</label>
-          <input id="cost_center_code" formControlName="cost_center_code">
-          
-          <button type="submit" [disabled]="costCenterForm.invalid">Submit</button>
+        <form [formGroup]="costCenterForm" (ngSubmit)="onSubmit()" class="form">
+          <div class="form-group">
+            <label for="cost_center_name">Cost Center Name</label>
+            <input id="cost_center_name" formControlName="cost_center_name" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="cost_center_code">Cost Center Code</label>
+            <input id="cost_center_code" formControlName="cost_center_code" type="number" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
 
+      <!-- Form for Type of Cost -->
       <div *ngIf="currentCategory === 'type-of-cost'">
-        <form [formGroup]="typeOfCostForm" (ngSubmit)="onSubmit()">
-          <label for="cost_name">Cost Name</label>
-          <input id="cost_name" formControlName="cost_name">
-          
-          <button type="submit" [disabled]="typeOfCostForm.invalid">Submit</button>
+        <form [formGroup]="typeOfCostForm" (ngSubmit)="onSubmit()" class="form">
+          <div class="form-group">
+            <label for="cost_name">Cost Name</label>
+            <input id="cost_name" formControlName="cost_name" type="text" class="form-control">
+          </div>
+          <label for="cost_code">Cost Code</label>
+            <input id="cost_code" formControlName="cost_code" type="number" class="form-control" min="1">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <!-- Form for Supplier -->
+      <div *ngIf="currentCategory === 'supplier'">
+        <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()" class="form">
+          <div class="form-group">
+            <label for="supplier_name">Supplier Name</label>
+            <input id="supplier_name" formControlName="supplier_name" type="text" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>

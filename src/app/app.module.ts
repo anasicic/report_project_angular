@@ -15,6 +15,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthService } from './services/auth.service';
 import { InvoiceService } from './services/invoice.service'; 
@@ -52,6 +53,7 @@ import { AdministrationComponent } from './administration/administration.compone
     BrowserAnimationsModule,
     MatSelectModule,
     MatSnackBarModule,
+    ReactiveFormsModule,
     
     
     // Standalone components

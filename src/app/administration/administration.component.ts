@@ -1,94 +1,146 @@
-import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms'; 
-import { CommonModule } from '@angular/common'; 
-import { RouterModule } from '@angular/router'; 
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AdministrationService } from '../services/administration.service';
+import { User } from '../models/user.model';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';  // For ngIf, etc.
+import { ReactiveFormsModule } from '@angular/forms';  // For formGroup
 
 @Component({
   selector: 'app-administration',
-  standalone: true,
-  imports: [RouterModule, CommonModule, ReactiveFormsModule],
+  standalone: true,  // Standalone component setting
+  imports: [RouterModule, CommonModule, ReactiveFormsModule],  // Add necessary imports for standalone
   templateUrl: './administration.component.html',
   styleUrls: ['./administration.component.scss']
 })
-export class AdministrationComponent {
-  currentFormType: string = ''; // Za pratiti trenutni tip forme (Add ili Update)
-  currentCategory: string = 'add'; // Za pratiti trenutnu kategoriju
+export class AdministrationComponent implements OnInit {
+  currentCategory: string = '';  // Current category (user, cost-center, type-of-cost, supplier)
+  
+  // Forms for each category
+  userForm!: FormGroup;
+  costCenterForm!: FormGroup;
+  typeOfCostForm!: FormGroup;
+  supplierForm!: FormGroup;
 
-  // Funkcija za postavljanje trenutne kategorije
-  setCurrentCategory(category: string) {
+  constructor(private fb: FormBuilder, private administrationService: AdministrationService) {}
+
+  ngOnInit(): void {
+    this.initializeForms();
+  }
+
+  // Function to initialize all forms
+  initializeForms(): void {
+    // User form
+    this.userForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      role: ['', Validators.required],
+      password: ['', Validators.required],
+      is_active: [false]
+    });
+
+    // Cost center form
+    this.costCenterForm = this.fb.group({
+      cost_center_name: ['', Validators.required],
+      cost_center_code: ['', Validators.required]
+    });
+
+    // Type of cost form
+    this.typeOfCostForm = this.fb.group({
+      cost_name: ['', Validators.required],
+      cost_code: ['', Validators.required]
+    });
+
+    // Supplier form
+    this.supplierForm = this.fb.group({
+      supplier_name: ['', Validators.required]
+    });
+  }
+
+  // Function to handle category change and display corresponding form
+  onCategoryChange(category: string): void {
     this.currentCategory = category;
   }
 
-  // Forme za unos podataka
-  userForm: FormGroup;
-  supplierForm: FormGroup;
-  costCenterForm: FormGroup;
-  typeOfCostForm: FormGroup;
-
-  constructor() {
-    // Inicijalizacija formi
-    this.userForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      first_name: new FormControl('', Validators.required),
-      last_name: new FormControl('', Validators.required),
-      role: new FormControl('', Validators.required),
-      is_active: new FormControl(true),
-    });
-
-    this.supplierForm = new FormGroup({
-      supplier_name: new FormControl('', Validators.required),
-    });
-
-    this.costCenterForm = new FormGroup({
-      cost_center_name: new FormControl('', Validators.required),
-      cost_center_code: new FormControl(''),
-    });
-
-    this.typeOfCostForm = new FormGroup({
-      cost_name: new FormControl('', Validators.required),
-    });
-  }
-
-  // Funkcije za navigaciju prema kategorijama (ovo možeš kasnije doraditi prema potrebi)
-  navigateToAdd(category: string): void {
-    this.currentCategory = category;
-    this.currentFormType = 'add';
-    this.resetForms();
-  }
-
-  navigateToUpdate(category: string): void {
-    this.currentCategory = category;
-    this.currentFormType = 'update';
-    this.resetForms();
-  }
-
-  // Funkcija za resetiranje formi kad se prikazuje nova forma
-  resetForms() {
-    this.userForm.reset();
-    this.supplierForm.reset();
-    this.costCenterForm.reset();
-    this.typeOfCostForm.reset();
-  }
-
-  // Funkcija za dodavanje korisnika, dobavljača, itd. (ovo je samo primjer)
-  onSubmit() {
+  // Function to handle form submission based on the selected category
+  onSubmit(): void {
     if (this.currentCategory === 'user' && this.userForm.valid) {
-      const newUser = this.userForm.value;
-      console.log('Dodaj korisnika:', newUser);
-      // Ovdje se šalje podaci na backend
-    } else if (this.currentCategory === 'supplier' && this.supplierForm.valid) {
-      const newSupplier = this.supplierForm.value;
-      console.log('Dodaj dobavljača:', newSupplier);
-      // Ovdje se šalje podaci na backend
+      this.createUser();
     } else if (this.currentCategory === 'cost-center' && this.costCenterForm.valid) {
-      const newCostCenter = this.costCenterForm.value;
-      console.log('Dodaj Cost Center:', newCostCenter);
-      // Ovdje se šalje podaci na backend
+      this.createCostCenter();
     } else if (this.currentCategory === 'type-of-cost' && this.typeOfCostForm.valid) {
-      const newTypeOfCost = this.typeOfCostForm.value;
-      console.log('Dodaj Type of Cost:', newTypeOfCost);
-      // Ovdje se šalje podaci na backend
+      this.createTypeOfCost();
+    } else if (this.currentCategory === 'supplier' && this.supplierForm.valid) {
+      this.createSupplier();
     }
+  }
+
+  // Function to create a user using the administration service
+  createUser(): void {
+    const userData = this.userForm.value;
+    this.administrationService.createUser(userData).subscribe(
+      (response: User) => {
+        // Handle successful user creation
+        console.log('User created successfully:', response);
+        this.userForm.reset(); // Reset the form after successful creation
+      },
+      (error) => {
+        // Handle error
+        console.error('Error creating user:', error);
+      }
+    );
+  }
+
+  // Function to create a cost center using the administration service
+  createCostCenter(): void {
+    const costCenterData = this.costCenterForm.value;
+    this.administrationService.createCostCenter(costCenterData).subscribe(
+      (response) => {
+        // Handle successful cost center creation
+        console.log('Cost center created successfully:', response);
+        this.costCenterForm.reset(); // Reset the form after successful creation
+      },
+      (error) => {
+        // Handle error
+        console.error('Error creating cost center:', error);
+      }
+    );
+  }
+
+  // Function to create a type of cost using the administration service
+  createTypeOfCost(): void {
+    const typeOfCostData = this.typeOfCostForm.value;
+    console.log('Sending data to backend:', typeOfCostData);
+  
+    this.administrationService.createTypeOfCost(typeOfCostData).subscribe(
+      (response) => {
+        console.log('Type of cost created successfully:', response);
+        this.typeOfCostForm.reset();
+      },
+      (error) => {
+        console.error('Error creating type of cost:', error);
+        if (error.error && error.error.detail) {
+          console.error('Validation Errors:', error.error.detail);  
+        }
+      }
+    );
+  }
+
+  // Function to create a supplier using the administration service
+  createSupplier(): void {
+    const supplierData = this.supplierForm.value;
+    this.administrationService.createSupplier(supplierData).subscribe(
+      (response) => {
+        // Handle successful supplier creation
+        console.log('Supplier created successfully:', response);
+        this.supplierForm.reset(); // Reset the form after successful creation
+      },
+      (error) => {
+        // Handle error
+        console.error('Error creating supplier:', error);
+      }
+    );
   }
 }
