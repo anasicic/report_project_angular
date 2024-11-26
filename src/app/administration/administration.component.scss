@@ -1,78 +1,78 @@
 .administration {
-  padding: 20px;  // Adds padding around the entire container to give space between the content and the edges
+  padding: 20px; // Adds padding around the entire container to give space between the content and the edges
 
   .layout {
-    display: flex;  // Uses Flexbox layout to arrange elements in a flexible and responsive manner
-    gap: 20px;  // Adds space between the left and right panels
+    display: flex; // Uses Flexbox layout to arrange elements in a flexible and responsive manner
+    gap: 20px; // Adds space between the left and right panels
 
     .left-panel {
-      flex: 1;  // Takes up one part of the layout
-      max-width: 400px;  // Sets the maximum width of the left panel to 400px
+      flex: 1; // Takes up one part of the layout
+      max-width: 400px; // Sets the maximum width of the left panel to 400px
 
       .section-title {
-        font-size: 20px;  // Sets the font size of the section title
-        color: white;  // Sets the text color to white
-        background-color: #d0e7ff;  // Sets a light blue background color for the title
-        padding: 8px 12px;  // Adds padding inside the title
-        border-radius: 5px;  // Rounds the corners of the title box
-        border: 1px solid #aad2f0;  // Adds a light blue border around the title
-        margin-bottom: 15px;  // Adds space below the title
-        text-transform: uppercase;  // Converts the title text to uppercase
-        text-align: left;  // Aligns the title text to the left
+        font-size: 20px; // Sets the font size of the section title
+        color: white; // Sets the text color to white
+        background-color: #d0e7ff; // Sets a light blue background color for the title
+        padding: 8px 12px; // Adds padding inside the title
+        border-radius: 5px; // Rounds the corners of the title box
+        border: 1px solid #aad2f0; // Adds a light blue border around the title
+        margin-bottom: 15px; // Adds space below the title
+        text-transform: uppercase; // Converts the title text to uppercase
+        text-align: left; // Aligns the title text to the left
       }
 
       ul {
-        list-style: none;  // Removes the default bullet points from the list
-        padding: 0;  // Removes the default padding from the list
+        list-style: none; // Removes the default bullet points from the list
+        padding: 0; // Removes the default padding from the list
 
         .list-item {
-          display: flex;  // Uses Flexbox for each list item, making items align horizontally
-          align-items: center;  // Vertically aligns the items in the center
-          margin: 10px 0;  // Adds space between list items
-          
+          display: flex; // Uses Flexbox for each list item, making items align horizontally
+          align-items: center; // Vertically aligns the items in the center
+          margin: 10px 0; // Adds space between list items
+
           .category-link {
-            font-family: 'Raleway', sans-serif;  // Sets the font for the link to Raleway
-            font-size: 16px;  // Sets the font size of the link
-            font-weight: 500;  // Makes the font weight medium (bold)
-            text-decoration: none;  // Removes the default underline from the link
-            color: #333;  // Sets the text color to a dark gray
-            white-space: nowrap;  // Prevents the text from wrapping to the next line
-            display: inline-block;  // Makes the link display inline-block, taking up only as much space as needed
-            flex: 1;  // Makes the link take up all available horizontal space
+            font-family: 'Raleway', sans-serif; // Sets the font for the link to Raleway
+            font-size: 16px; // Sets the font size of the link
+            font-weight: 500; // Makes the font weight medium (bold)
+            text-decoration: none; // Removes the default underline from the link
+            color: #333; // Sets the text color to a dark gray
+            white-space: nowrap; // Prevents the text from wrapping to the next line
+            display: inline-block; // Makes the link display inline-block, taking up only as much space as needed
+            flex: 1; // Makes the link take up all available horizontal space
           }
 
           .button-group {
-            display: flex;  // Uses Flexbox for the buttons group
-            gap: 10px;  // Adds space between buttons
+            display: flex; // Uses Flexbox for the buttons group
+            gap: 10px; // Adds space between buttons
 
             .add-button,
             .update-button {
-              background-color: #f5f5f5;  // Sets the background color of the buttons to light gray
-              color: #333;  // Sets the text color to dark gray
-              border: 1px solid #ccc;  // Adds a light gray border around the buttons
-              padding: 5px 10px;  // Adds padding inside the buttons
-              border-radius: 5px;  // Rounds the corners of the buttons
-              font-size: 14px;  // Sets the font size of the button text
-              cursor: pointer;  // Changes the cursor to a pointer to indicate it's clickable
-              display: flex;  // Uses Flexbox for the buttons to align icons and text
-              align-items: center;  // Vertically aligns the icons and text inside the button
-              gap: 5px;  // Adds space between the icon and the text inside the button
+              background-color: #f5f5f5; // Sets the background color of the buttons to light gray
+              color: #333; // Sets the text color to dark gray
+              border: 1px solid #ccc; // Adds a light gray border around the buttons
+              padding: 5px 10px; // Adds padding inside the buttons
+              border-radius: 5px; // Rounds the corners of the buttons
+              font-size: 14px; // Sets the font size of the button text
+              cursor: pointer; // Changes the cursor to a pointer to indicate it's clickable
+              display: flex; // Uses Flexbox for the buttons to align icons and text
+              align-items: center; // Vertically aligns the icons and text inside the button
+              gap: 5px; // Adds space between the icon and the text inside the button
 
               &:hover {
-                background-color: #e6e6e6;  // Changes the background color when the button is hovered
-                border-color: #999;  // Changes the border color when the button is hovered
+                background-color: #e6e6e6; // Changes the background color when the button is hovered
+                border-color: #999; // Changes the border color when the button is hovered
               }
             }
 
             .add-button .icon {
-              color: green;  // Sets the icon color to green for the Add button
-              font-weight: bold;  // Makes the icon text bold
-              font-size: 18px;  // Sets the font size of the icon
+              color: green; // Sets the icon color to green for the Add button
+              font-weight: bold; // Makes the icon text bold
+              font-size: 18px; // Sets the font size of the icon
             }
 
             .update-button .icon {
-              color: #666;  // Sets the icon color to a medium gray for the Update button
-              font-size: 16px;  // Sets the font size of the icon
+              color: #666; // Sets the icon color to a medium gray for the Update button
+              font-size: 16px; // Sets the font size of the icon
             }
           }
         }
@@ -80,87 +80,87 @@
     }
 
     .right-panel {
-      flex: 2;  // Takes up two parts of the layout
-      max-width: 600px;  // Sets the maximum width of the right panel to 600px
+      flex: 2; // Takes up two parts of the layout
+      max-width: 600px; // Sets the maximum width of the right panel to 600px
 
       .form {
-        background-color: #fff;  // Sets the background color of the form to white
-        padding: 20px;  // Adds padding inside the form
-        border: 1px solid #ddd;  // Adds a light gray border around the form
-        border-radius: 8px;  // Rounds the corners of the form
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);  // Adds a subtle shadow to the form for visual depth
+        background-color: #fff; // Sets the background color of the form to white
+        padding: 20px; // Adds padding inside the form
+        border: 1px solid #ddd; // Adds a light gray border around the form
+        border-radius: 8px; // Rounds the corners of the form
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); // Adds a subtle shadow to the form for visual depth
 
         .form-group {
-          margin-bottom: 20px;  // Adds space between each form group
+          margin-bottom: 20px; // Adds space between each form group
 
           label {
-            display: block;  // Makes the label a block element, stacking it above the input
-            margin-bottom: 8px;  // Adds space below the label
-            font-weight: normal;  // Sets the label text to normal weight
-            color: #555;  // Sets the label text color to dark gray
-            background-color: white;  // Sets the background color of the label to white
-            padding: 0 6px;  // Adds horizontal padding to the label
-            border-radius: 4px;  // Rounds the corners of the label
-            font-size: 14px;  // Sets the font size of the label text
+            display: block; // Makes the label a block element, stacking it above the input
+            margin-bottom: 8px; // Adds space below the label
+            font-weight: normal; // Sets the label text to normal weight
+            color: #555; // Sets the label text color to dark gray
+            background-color: white; // Sets the background color of the label to white
+            padding: 0 6px; // Adds horizontal padding to the label
+            border-radius: 4px; // Rounds the corners of the label
+            font-size: 14px; // Sets the font size of the label text
           }
 
           .form-control {
-            width: 100%;  // Makes the input field take up the full width of the parent container
-            padding: 12px 16px;  // Adds padding inside the input field
-            border: 1px solid #ccc;  // Adds a light gray border around the input
-            border-radius: 6px;  // Rounds the corners of the input field
-            background-color: #f9f9f9;  // Sets the background color of the input field to a light gray
-            color: #333;  // Sets the text color inside the input field to dark gray
-            font-family: inherit;  // Inherits the font family from the parent
-            font-size: 14px;  // Sets the font size inside the input field
+            width: 100%; // Makes the input field take up the full width of the parent container
+            padding: 12px 16px; // Adds padding inside the input field
+            border: 1px solid #ccc; // Adds a light gray border around the input
+            border-radius: 6px; // Rounds the corners of the input field
+            background-color: #f9f9f9; // Sets the background color of the input field to a light gray
+            color: #333; // Sets the text color inside the input field to dark gray
+            font-family: inherit; // Inherits the font family from the parent
+            font-size: 14px; // Sets the font size inside the input field
 
             &:focus {
-              border-color: #007bff;  // Changes the border color to blue when the input is focused
-              background-color: #fff;  // Changes the background color to white when focused
+              border-color: #007bff; // Changes the border color to blue when the input is focused
+              background-color: #fff; // Changes the background color to white when focused
             }
           }
 
           /* Styling for the checkbox */
           .form-check-input {
-            width: 18px;  // Sets the width of the checkbox
-            height: 18px;  // Sets the height of the checkbox
-            border: 2px solid #d0e7ff;  // Sets a blue border around the checkbox
-            border-radius: 4px;  // Rounds the corners of the checkbox
-            background-color: #fff;  // Sets the background color of the checkbox to white
-            cursor: pointer;  // Changes the cursor to a pointer when hovering over the checkbox
-            transition: all 0.3s ease;  // Adds a smooth transition effect when the checkbox state changes
-            appearance: none;  // Removes the default checkbox styling
+            width: 18px; // Sets the width of the checkbox
+            height: 18px; // Sets the height of the checkbox
+            border: 2px solid #d0e7ff; // Sets a blue border around the checkbox
+            border-radius: 4px; // Rounds the corners of the checkbox
+            background-color: #fff; // Sets the background color of the checkbox to white
+            cursor: pointer; // Changes the cursor to a pointer when hovering over the checkbox
+            transition: all 0.3s ease; // Adds a smooth transition effect when the checkbox state changes
+            appearance: none; // Removes the default checkbox styling
           }
 
           .form-check-input:checked {
-            background-color: #007bff;  // Changes the background color to blue when the checkbox is checked
-            border-color: #007bff;  // Changes the border color to blue when checked
-            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath fill="none" d="M0 0h24v24H0z"/%3E%3Cpath d="M20 6L9 17l-5-5" stroke="%23fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');  // Adds a white checkmark when checked
-            background-repeat: no-repeat;  // Prevents the background image from repeating
-            background-position: center;  // Centers the checkmark inside the checkbox
+            background-color: #007bff; // Changes the background color to blue when the checkbox is checked
+            border-color: #007bff; // Changes the border color to blue when checked
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath fill="none" d="M0 0h24v24H0z"/%3E%3Cpath d="M20 6L9 17l-5-5" stroke="%23fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E'); // Adds a white checkmark when checked
+            background-repeat: no-repeat; // Prevents the background image from repeating
+            background-position: center; // Centers the checkmark inside the checkbox
           }
 
           .form-check-input:focus {
-            outline: none;  // Removes the outline around the checkbox when focused
-            border-color: #d0e7ff;  // Changes the border color to light blue when focused
+            outline: none; // Removes the outline around the checkbox when focused
+            border-color: #d0e7ff; // Changes the border color to light blue when focused
           }
         }
 
         .btn-primary {
-          background-color: #007bff;  // Sets the background color of the button to blue
-          color: white;  // Sets the text color of the button to white
-          border: none;  // Removes the border from the button
-          padding: 12px 20px;  // Adds padding inside the button
-          border-radius: 6px;  // Rounds the corners of the button
-          cursor: pointer;  // Changes the cursor to a pointer when hovering over the button
-          font-size: 16px;  // Sets the font size of the button text
+          background-color: #007bff; // Sets the background color of the button to blue
+          color: white; // Sets the text color of the button to white
+          border: none; // Removes the border from the button
+          padding: 12px 20px; // Adds padding inside the button
+          border-radius: 6px; // Rounds the corners of the button
+          cursor: pointer; // Changes the cursor to a pointer when hovering over the button
+          font-size: 16px; // Sets the font size of the button text
 
           &:hover {
-            background-color: #0056b3;  // Changes the background color when the button is hovered
+            background-color: #0056b3; // Changes the background color when the button is hovered
           }
 
           &:active {
-            background-color: #004085;  // Changes the background color when the button is clicked
+            background-color: #004085; // Changes the background color when the button is clicked
           }
         }
       }

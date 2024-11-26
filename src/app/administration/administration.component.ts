@@ -15,17 +15,30 @@ import { ReactiveFormsModule } from '@angular/forms';  // For formGroup
 })
 export class AdministrationComponent implements OnInit {
   currentCategory: string = '';  // Current category (user, cost-center, type-of-cost, supplier)
-  
+
   // Forms for each category
   userForm!: FormGroup;
   costCenterForm!: FormGroup;
   typeOfCostForm!: FormGroup;
   supplierForm!: FormGroup;
 
+  // Lists for displaying data
+  users: User[] = [];
+  costCenters: any[] = [];
+  typesOfCost: any[] = [];
+  suppliers: any[] = [];
+
+  // Selected items for editing
+  selectedUser: User | null = null;
+  selectedCostCenter: any | null = null;
+  selectedTypeOfCost: any | null = null;
+  selectedSupplier: any | null = null;
+
   constructor(private fb: FormBuilder, private administrationService: AdministrationService) {}
 
   ngOnInit(): void {
     this.initializeForms();
+    this.fetchData(); // Fetch data for all categories on initialization
   }
 
   // Function to initialize all forms
@@ -59,88 +72,185 @@ export class AdministrationComponent implements OnInit {
     });
   }
 
+  // Fetch data for all categories
+  fetchData(): void {
+    this.administrationService.getUsers().subscribe(
+      (data: User[]) => this.users = data,
+      (error) => console.error('Error fetching users:', error)
+    );
+
+    this.administrationService.getCostCenters().subscribe(
+      (data: any[]) => this.costCenters = data,
+      (error) => console.error('Error fetching cost centers:', error)
+    );
+
+    this.administrationService.getTypesOfCost().subscribe(
+      (data: any[]) => this.typesOfCost = data,
+      (error) => console.error('Error fetching types of cost:', error)
+    );
+
+    this.administrationService.getSuppliers().subscribe(
+      (data: any[]) => this.suppliers = data,
+      (error) => console.error('Error fetching suppliers:', error)
+    );
+  }
+
   // Function to handle category change and display corresponding form
   onCategoryChange(category: string): void {
     this.currentCategory = category;
+    this.clearSelection(); // Clear selection when switching categories
+  }
+
+  // Clear selected items and reset forms
+  clearSelection(): void {
+    this.selectedUser = null;
+    this.selectedCostCenter = null;
+    this.selectedTypeOfCost = null;
+    this.selectedSupplier = null;
+    this.userForm.reset();
+    this.costCenterForm.reset();
+    this.typeOfCostForm.reset();
+    this.supplierForm.reset();
   }
 
   // Function to handle form submission based on the selected category
   onSubmit(): void {
-    if (this.currentCategory === 'user' && this.userForm.valid) {
-      this.createUser();
-    } else if (this.currentCategory === 'cost-center' && this.costCenterForm.valid) {
-      this.createCostCenter();
-    } else if (this.currentCategory === 'type-of-cost' && this.typeOfCostForm.valid) {
-      this.createTypeOfCost();
-    } else if (this.currentCategory === 'supplier' && this.supplierForm.valid) {
-      this.createSupplier();
+    if (this.currentCategory === 'user') {
+      this.selectedUser ? this.updateUser() : this.createUser();
+    } else if (this.currentCategory === 'cost-center') {
+      this.selectedCostCenter ? this.updateCostCenter() : this.createCostCenter();
+    } else if (this.currentCategory === 'type-of-cost') {
+      this.selectedTypeOfCost ? this.updateTypeOfCost() : this.createTypeOfCost();
+    } else if (this.currentCategory === 'supplier') {
+      this.selectedSupplier ? this.updateSupplier() : this.createSupplier();
     }
   }
 
-  // Function to create a user using the administration service
+  // Functions for user management
   createUser(): void {
     const userData = this.userForm.value;
     this.administrationService.createUser(userData).subscribe(
-      (response: User) => {
-        // Handle successful user creation
-        console.log('User created successfully:', response);
-        this.userForm.reset(); // Reset the form after successful creation
+      () => {
+        this.fetchData();
+        this.userForm.reset();
       },
-      (error) => {
-        // Handle error
-        console.error('Error creating user:', error);
-      }
+      (error) => console.error('Error creating user:', error)
     );
   }
 
-  // Function to create a cost center using the administration service
+  updateUser(): void {
+    const userData = this.userForm.value;
+    this.administrationService.updateUser(userData).subscribe(
+      () => {
+        this.fetchData();
+        this.clearSelection();
+      },
+      (error) => console.error('Error updating user:', error)
+    );
+  }
+
+  deleteUser(user: User): void {
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.administrationService.deleteUser(user.id).subscribe(
+        () => this.fetchData(),
+        (error) => console.error('Error deleting user:', error)
+      );
+    }
+  }
+
+  // Functions for cost center management
   createCostCenter(): void {
-    const costCenterData = this.costCenterForm.value;
-    this.administrationService.createCostCenter(costCenterData).subscribe(
-      (response) => {
-        // Handle successful cost center creation
-        console.log('Cost center created successfully:', response);
-        this.costCenterForm.reset(); // Reset the form after successful creation
+    const data = this.costCenterForm.value;
+    this.administrationService.createCostCenter(data).subscribe(
+      () => {
+        this.fetchData();
+        this.costCenterForm.reset();
       },
-      (error) => {
-        // Handle error
-        console.error('Error creating cost center:', error);
-      }
+      (error) => console.error('Error creating cost center:', error)
     );
   }
 
-  // Function to create a type of cost using the administration service
+  updateCostCenter(): void {
+    const data = this.costCenterForm.value;
+    this.administrationService.updateCostCenter(data).subscribe(
+      () => {
+        this.fetchData();
+        this.clearSelection();
+      },
+      (error) => console.error('Error updating cost center:', error)
+    );
+  }
+
+  deleteCostCenter(item: any): void {
+    if (confirm('Are you sure you want to delete this cost center?')) {
+      this.administrationService.deleteCostCenter(item.id).subscribe(
+        () => this.fetchData(),
+        (error) => console.error('Error deleting cost center:', error)
+      );
+    }
+  }
+
+  // Functions for type of cost management
   createTypeOfCost(): void {
-    const typeOfCostData = this.typeOfCostForm.value;
-    console.log('Sending data to backend:', typeOfCostData);
-  
-    this.administrationService.createTypeOfCost(typeOfCostData).subscribe(
-      (response) => {
-        console.log('Type of cost created successfully:', response);
+    const data = this.typeOfCostForm.value;
+    this.administrationService.createTypeOfCost(data).subscribe(
+      () => {
+        this.fetchData();
         this.typeOfCostForm.reset();
       },
-      (error) => {
-        console.error('Error creating type of cost:', error);
-        if (error.error && error.error.detail) {
-          console.error('Validation Errors:', error.error.detail);  
-        }
-      }
+      (error) => console.error('Error creating type of cost:', error)
     );
   }
 
-  // Function to create a supplier using the administration service
-  createSupplier(): void {
-    const supplierData = this.supplierForm.value;
-    this.administrationService.createSupplier(supplierData).subscribe(
-      (response) => {
-        // Handle successful supplier creation
-        console.log('Supplier created successfully:', response);
-        this.supplierForm.reset(); // Reset the form after successful creation
+  updateTypeOfCost(): void {
+    const data = this.typeOfCostForm.value;
+    this.administrationService.updateTypeOfCost(data).subscribe(
+      () => {
+        this.fetchData();
+        this.clearSelection();
       },
-      (error) => {
-        // Handle error
-        console.error('Error creating supplier:', error);
-      }
+      (error) => console.error('Error updating type of cost:', error)
     );
+  }
+
+  deleteTypeOfCost(item: any): void {
+    if (confirm('Are you sure you want to delete this type of cost?')) {
+      this.administrationService.deleteTypeOfCost(item.id).subscribe(
+        () => this.fetchData(),
+        (error) => console.error('Error deleting type of cost:', error)
+      );
+    }
+  }
+
+  // Functions for supplier management
+  createSupplier(): void {
+    const data = this.supplierForm.value;
+    this.administrationService.createSupplier(data).subscribe(
+      () => {
+        this.fetchData();
+        this.supplierForm.reset();
+      },
+      (error) => console.error('Error creating supplier:', error)
+    );
+  }
+
+  updateSupplier(): void {
+    const data = this.supplierForm.value;
+    this.administrationService.updateSupplier(data).subscribe(
+      () => {
+        this.fetchData();
+        this.clearSelection();
+      },
+      (error) => console.error('Error updating supplier:', error)
+    );
+  }
+
+  deleteSupplier(item: any): void {
+    if (confirm('Are you sure you want to delete this supplier?')) {
+      this.administrationService.deleteSupplier(item.id).subscribe(
+        () => this.fetchData(),
+        (error) => console.error('Error deleting supplier:', error)
+      );
+    }
   }
 }
