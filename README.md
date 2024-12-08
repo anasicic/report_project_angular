@@ -1,27 +1,90 @@
-# ReportProjectAngular
+# report_project_Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
+**report_project_Angular** is a web application built using Angular, serving as the frontend for the **report_project_FastAPI** backend. It provides an intuitive interface for managing invoices, users, cost centers, and generating expense reports.
 
-## Development server
+## Contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Running the Application](#running-the-application)
+- [Application Structure](#application-structure)
+- [Environment Setup](#environment-setup)
+- [Features](#features)
+- [Technologies](#technologies)
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Running the Application
 
-## Build
+To run the project locally, follow these steps:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **Clone the Repository**:
 
-## Running unit tests
+    If you are downloading the project from GitHub, clone the repository using `git clone`:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    ```bash
+    git clone https://github.com/anasicic/report_project_angular.git
+    ```
 
-## Running end-to-end tests
+2. **Navigate to the Project Directory**:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+    After cloning the project, navigate to the project directory:
 
-## Further help
+    ```bash
+    cd report_project_Angular
+    ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+3. **Install Required Packages**:
+
+    Install all the necessary dependencies specified in the `package.json` file using `npm`:
+
+    ```bash
+    npm install
+    ```
+
+4. **Run the Development Server**:
+
+    Start the Angular development server:
+
+    ```bash
+    ng serve
+    ```
+
+5. **Open a Browser and Go To**:
+
+    Open the following URL in your browser to access the application:
+
+    ```url
+    http://localhost:4200/
+    ```
+
+---
+
+## Application Structure
+
+The application is organized into the following main modules and directories:
+
+- **auth**: Handles user authentication (login/logout) and route guards for protected routes.
+- **dashboard**: Displays key metrics and visualizations, such as expenses grouped by cost centers.
+- **invoices**: Provides functionality for adding, updating, deleting, and listing invoices.
+- **users**: Manages user accounts, including profile updates and role assignments.
+- **shared**: Contains reusable components, services, and directives used throughout the application.
+
+The codebase adheres to Angular's best practices, ensuring maintainability and scalability.
+
+---
+
+## Environment Setup
+
+The application uses Angular's environment configuration files located in the `src/environments` directory:
+
+- `environment.ts`: Used for local development.
+- `environment.prod.ts`: Used for production builds.
+
+### Customizing the Backend API URL
+
+To modify the API URL, update the `apiUrl` property in the relevant environment file. Example:
+
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8000/api'
+};
